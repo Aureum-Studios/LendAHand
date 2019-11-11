@@ -1,3 +1,5 @@
+![MADE WITH](https://img.shields.io/static/v1.svg?labelColor=lightgray&color=gray&label=MADE%20WITH&message=FLUTTER&logo=flutter&logoColor=blue&style=for-the-badge&cacheSeconds=33600)
+
 # lend_a_hand
 
 A new Flutter project.
