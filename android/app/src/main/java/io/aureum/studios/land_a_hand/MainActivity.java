@@ -1,4 +1,4 @@
-package io.aureum.studios.land_a_hand;
+package io.aureum.studios.lend_a_hand;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
