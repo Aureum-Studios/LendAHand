@@ -1,5 +1,7 @@
 ![MADE WITH](https://img.shields.io/static/v1.svg?labelColor=lightgray&color=gray&label=MADE%20WITH&message=FLUTTER&logo=flutter&logoColor=blue&style=for-the-badge&cacheSeconds=33600)
 
+[![Codemagic build status](https://api.codemagic.io/apps/5dc997411de6024542cbccf2/5dc997411de6024542cbccf1/status_badge.svg)](https://codemagic.io/apps/5dc997411de6024542cbccf2/5dc997411de6024542cbccf1/latest_build)
+
 # lend_a_hand
 
 A new Flutter project.
