@@ -20,17 +20,33 @@ class MyApp extends StatelessWidget {
       title: 'LendAHAnd',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: FutureBuilder(
-        // get the Provider, and call the getUser method
         future: Provider.of<AuthService>(context).getUser(),
-        // wait for the future to resolve and render the appropriate
-        // widget for HomePage or LoginPage
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return snapshot.hasData ? HomePage() : LoginPage();
+            if (snapshot.error != null) {
+              print("error");
+              return Text(snapshot.error.toString());
+            }
+            // redirect to the proper page, pass the user into the
+            // `HomePage` so we can display the user email in welcome msg     ⇐ NEW
+            return snapshot.hasData ? HomePage(snapshot.data) : LoginPage();
           } else {
-            return Container(color: Colors.white);
+            return LoadingCircle();
           }
         },
+      ),
+        debugShowCheckedModeBanner: false
+    );
+  }
+}
+
+class LoadingCircle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: CircularProgressIndicator(),
+        alignment: Alignment(0.0, 0.0),
       ),
     );
   }

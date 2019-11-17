@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1083025695980-t142ik2dt2q9vne5imnpra4psnp9hs35.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1083025695980-t142ik2dt2q9vne5imnpra4psnp9hs35</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBybjVC6Mg3tlecvEZU2MX4kIe0Ep5AMaI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1083025695980</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>io.aureum.studios.landAHand</string>
+	<key>PROJECT_ID</key>
+	<string>aureum-lend-a-hand</string>
+	<key>STORAGE_BUCKET</key>
+	<string>aureum-lend-a-hand.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1083025695980:ios:78a158fa4ebf9831ceb1c9</string>
+	<key>DATABASE_URL</key>
+	<string>https://aureum-lend-a-hand.firebaseio.com</string>
+</dict>
+</plist>

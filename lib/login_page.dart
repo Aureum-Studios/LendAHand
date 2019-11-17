@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
@@ -48,13 +49,41 @@ class _LoginPageState extends State<LoginPage> {
 
                         // Validate will return true if is valid, or false if invalid.
                         if (form.validate()) {
-                          var result = await Provider.of<AuthService>(context)
-                              .loginUser(email: _email, password: _password);
-                          if (result == null) {}
+                          try {
+                            FirebaseUser result = await Provider.of<
+                                AuthService>(context)
+                                .loginUser(email: _email, password: _password);
+                            print(result);
+                          } on AuthException catch (error) {
+                            // handle the firebase specific error
+                            return _buildErrorDialog(context, error.message);
+                          } on Exception catch (error) {
+                            // gracefully handle anything else that might happen..
+                            return _buildErrorDialog(context, error.toString());
+                          }
                         }
                       }),
                 ],
               ))),
     );
   }
+}
+
+Future _buildErrorDialog(BuildContext context, _message) {
+  return showDialog(
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Error Message'),
+        content: Text(_message),
+        actions: [
+          FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              })
+        ],
+      );
+    },
+    context: context,
+  );
 }
