@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 import 'home_page.dart';
