@@ -6,7 +6,13 @@ class AccountService {
 
   AccountService({this.email, this.name, this.password});
 
-  void saveAccount() {
+  void saveAccount(String email, String name, String password) {
+    print(email);
+    print(name);
+    print(password);
+
     print('Save account in Firebase!');
   }
 }
+
+final accountService = AccountService();

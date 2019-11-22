@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:lend_a_hand/services/account_service.dart';
 
 class AccountCreation extends StatefulWidget {
   @override
@@ -85,6 +86,7 @@ class _AccountCreationState extends State<AccountCreation> {
                       _accountKey.currentState.save();
 
                       //Call Firebase to create Authenticated User.
+                      accountService.saveAccount(email, name, password);
                     }
                   },
                   color: Colors.amber,
