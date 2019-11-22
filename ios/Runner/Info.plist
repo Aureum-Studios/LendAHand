@@ -41,5 +41,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>We use your location to make it easy for you to find nearby jobs and services.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>The app needs access to location to work properly. Tap "Always Allow" to make nearby jobs feed possible. We'll access your location only when updating your nearby jobs and only when we really need it.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>The app needs access to location in the background to work properly.</string>
 </dict>
 </plist>
