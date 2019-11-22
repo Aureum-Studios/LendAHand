@@ -17,7 +17,7 @@ class _AccountCreationState extends State<AccountCreation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Sign up'),
+        title: Text('Account Sign Up'),
         centerTitle: true,
         backgroundColor: Colors.amber,
       ),
