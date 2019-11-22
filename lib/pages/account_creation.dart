@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lend_a_hand/services/AccountService.dart';
+import 'package:lend_a_hand/services/account_service.dart';
 import 'package:email_validator/email_validator.dart';
 
 class AccountCreation extends StatefulWidget {
@@ -8,7 +8,7 @@ class AccountCreation extends StatefulWidget {
 }
 
 class _AccountCreationState extends State<AccountCreation> {
-  final GlobalKey<FormState> _accFormKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _accountKey = new GlobalKey<FormState>();
   AccountService account = new AccountService();
 
   @override
@@ -23,14 +23,14 @@ class _AccountCreationState extends State<AccountCreation> {
       ),
       body: SafeArea(
         child: Form(
-          key: _accFormKey,
+          key: _accountKey,
           autovalidate: true,
           child: Column(
             children: <Widget>[
               new InputEmail(account: account),
               new InputName(account: account),
               new InputPassword(account: account),
-              new SubmitButton(accFormKey: _accFormKey, account: account)
+              new SubmitButton(accFormKey: _accountKey, account: account)
             ],
           ),
         ),

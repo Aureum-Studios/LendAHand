@@ -10,7 +10,7 @@ class _LoadingAccountState extends State<LoadingAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.amber,
       body: Center(
         child: SpinKitPouringHourglass(
           color: Colors.white,
