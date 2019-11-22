@@ -6,6 +6,29 @@
 
 ###### Description needs to be added
 
+## Using Firebase
+
+After accesing the [Firebase Console](https://console.firebase.google.com/u/0/) you will see that we already have quite 
+a few things setup:
+
+- Authentication
+- Analytics
+- Crashlytics
+
+To validate, just go through each tab. Furthermore the [`pubspec.yml`](./pubspec.yaml) shows it.
+
+#### Adding New Firebase Features
+
+To add new firebase features, you must likely will need to modify:
+
+- Project level (Android) [`build.gradle`](./android/build.gradle)
+- App level (Android) [`build.gradle`](./android/app/build.gradle)
+- Podfile (iOS) [`Podfile`](./ios/Podfile)
+
+**NOTE:** You don't need Xcode for this, just CocoaPods.
+
+These additions require a hot restart, and perhaps running `pod install` or `gradle build` on command line, 
+although Flutter `main.dart` run should trigger all this.
 ## Useful Resources
 * [Firebase Console](https://console.firebase.google.com/u/0/)
 * [Google Play Console](https://play.google.com/apps/publish/?account=8413851140364268209#AppListPlace)
