@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:lend_a_hand/services/auth_service.dart';
-import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/materialge:provider/provider.dart';
 
 import 'home_page.dart';
 import 'login_page.dart';
@@ -18,26 +15,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'LendAHAnd',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: FutureBuilder(
-        future: Provider.of<AuthService>(context).getUser(),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.error != null) {
-              print("error");
-              return Text(snapshot.error.toString());
+        title: 'LendAHAnd',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: FutureBuilder(
+          future: Provider.of<AuthService>(context).getUser(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.error != null) {
+                print("error");
+                return Text(snapshot.error.toString());
+              }
+              // redirect to the proper page, pass the user into the
+              // `HomePage` so we can display the user email in welcome msg     ⇐ NEW
+              return snapshot.hasData ? HomePage(snapshot.data) : LoginPage();
+            } else {
+              return LoadingCircle();
             }
-            // redirect to the proper page, pass the user into the
-            // `HomePage` so we can display the user email in welcome msg     ⇐ NEW
-            return snapshot.hasData ? HomePage(snapshot.data) : LoginPage();
-          } else {
-            return LoadingCircle();
-          }
-        },
-      ),
-        debugShowCheckedModeBanner: false
-    );
+          },
+        ),
+        debugShowCheckedModeBanner: false);
   }
 }
 
