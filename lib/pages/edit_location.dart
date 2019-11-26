@@ -10,6 +10,8 @@ class Location extends StatefulWidget {
 class _LocationState extends State<Location> {
   Future<Position> currentPosition;
   Future<Placemark> currentPlacemark;
+  double latitude;
+  double longitude;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +32,14 @@ class _LocationState extends State<Location> {
               onPressed: () {
                 currentPosition = locationService.getCurrentLocation();
                 currentPosition.then((Position position) {
-                  print(position.toJson());
+                  //print(position.toJson());
+                  latitude = position.latitude;
+                  longitude = position.longitude;
                   currentPlacemark = locationService.getCurrentAddress(position);
                 });
                 currentPlacemark.then((Placemark placemark) {
-                  print(placemark.toJson());
+                  //print(placemark.toJson());
+                  locationService.getNearbyLocations(longitude, latitude, 160934, placemark.administrativeArea);
                 });
               },
               color: Colors.amber,
