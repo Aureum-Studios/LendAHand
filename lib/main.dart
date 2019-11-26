@@ -7,11 +7,11 @@ import 'pages/home_page.dart';
 import 'pages/login_page.dart';
 
 void main() =>
-    runApp(ChangeNotifierProvider<AuthService>(
-        child: MyApp(),
-        builder: (BuildContext context) {
-          return AuthService();
-        }));
+		runApp(ChangeNotifierProvider<AuthService>(
+				child: MyApp(),
+				builder: (BuildContext context) {
+					return AuthService();
+				}));
 
 class MyApp extends StatelessWidget {
   @override
