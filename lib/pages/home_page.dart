@@ -1,12 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  final FirebaseUser currentUser;
+//  final FirebaseUser currentUser;
 
-  HomePage(this.currentUser);
+  HomePage();
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -30,7 +29,8 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 20.0),
             Text(
-              "Welcome ${widget.currentUser.email}",
+//              "Welcome ${widget.currentUser.email}",
+              "Welcome",
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

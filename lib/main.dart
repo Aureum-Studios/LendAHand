@@ -1,7 +1,10 @@
-import 'package:flutter/materialge:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:lend_a_hand/pages/account_creation.dart';
+import 'package:lend_a_hand/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
-import 'home_page.dart';
-import 'login_page.dart';
+import 'pages/home_page.dart';
+import 'pages/login_page.dart';
 
 void main() =>
     runApp(ChangeNotifierProvider<AuthService>(
@@ -11,7 +14,6 @@ void main() =>
         }));
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of you/**/r application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,12 +29,27 @@ class MyApp extends StatelessWidget {
               }
               // redirect to the proper page, pass the user into the
               // `HomePage` so we can display the user email in welcome msg     ⇐ NEW
-              return snapshot.hasData ? HomePage(snapshot.data) : LoginPage();
+              return snapshot.hasData ? HomePage() : LoginPage();
             } else {
               return LoadingCircle();
             }
           },
         ),
+        onGenerateRoute: (RouteSettings settings) {
+          switch (settings.name) {
+            case '/home':
+              return MaterialPageRoute(builder: (context) => HomePage());
+              break;
+            case '/accountCreation':
+              return MaterialPageRoute(builder: (context) => AccountCreation());
+              break;
+            case '/login':
+              return MaterialPageRoute(builder: (context) => LoginPage());
+              break;
+            default:
+              return MaterialPageRoute(builder: (context) => HomePage());
+          }
+        },
         debugShowCheckedModeBanner: false);
   }
 }
