@@ -25,16 +25,12 @@ class AuthService with ChangeNotifier {
   }
 
   // wrapping the firebase calls
-  Future createUser({String firstName,
-    String lastName,
-    String email,
-    String password}) async {}
+	Future createUser({String firstName, String lastName, String email, String password}) async {}
 
   // logs in the user if password matches
   Future loginUser({String email, String password}) async {
     try {
-      var result = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+			var result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       // since something changed, let's notify the listeners...
       notifyListeners();
       return result;

@@ -27,8 +27,6 @@ class MyApp extends StatelessWidget {
                 print("error");
                 return Text(snapshot.error.toString());
               }
-              // redirect to the proper page, pass the user into the
-              // `HomePage` so we can display the user email in welcome msg     ⇐ NEW
               return snapshot.hasData ? HomePage() : LoginPage();
             } else {
               return LoadingCircle();
