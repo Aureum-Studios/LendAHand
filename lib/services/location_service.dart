@@ -1,9 +1,4 @@
-import 'dart:convert';
-
 import 'package:geolocator/geolocator.dart';
-import 'package:lend_a_hand/resources/us_states.dart';
-import 'package:http/http.dart';
-
 
 class LocationService {
 
@@ -26,16 +21,12 @@ class LocationService {
     });
   }
 
-  void getNearbyLocations(double longitude, double latitude, double distance, String state) async {
-    String STATE_ABBREVIATION = STATE_MAP[state];
-    String URL = 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&sort=-dist&refine.state=$STATE_ABBREVIATION&geofilter.distance=$latitude%2C+$longitude%2C+$distance';
-
-    Response response = await get(URL);
-    Map nearbyLocations = jsonDecode(response.body);
-    nearbyLocations.forEach((key, value) {
-      print('$key: $value');
+  Future<double> getDistanceBetweenPoints(double latitude1, double longitude1, double latitude2, double longitude2) async {
+    return await Geolocator().distanceBetween(latitude1, longitude1, latitude2, longitude2)
+        .then((double value) => value)
+        .catchError((error) {
+          print(error);
     });
-    print(nearbyLocations);
   }
 }
 
