@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1083025695980",
+    "firebase_url": "https://aureum-lend-a-hand.firebaseio.com",
+    "project_id": "aureum-lend-a-hand",
+    "storage_bucket": "aureum-lend-a-hand.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083025695980:android:d2918a8909f94746ceb1c9",
+        "android_client_info": {
+          "package_name": "io.aureum.studios.lend_a_hand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083025695980-2ka9tp1k50pbjo4recfoka2d9rpkfqr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiLVfaoP8Q_afxt7Zgqo9r1jtwfLTY4bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083025695980-2ka9tp1k50pbjo4recfoka2d9rpkfqr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
