@@ -1,52 +1,37 @@
-import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:lend_a_hand/services/location_service.dart';
+import 'dart:async';
 
-class Location extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class EditLocation extends StatefulWidget {
   @override
-  _LocationState createState() => _LocationState();
+  _EditLocationState createState() => _EditLocationState();
 }
 
-class _LocationState extends State<Location> {
-  Future<Position> _currentPosition;
-  Future<Placemark> _currentPlacemark;
-  double _latitude;
-  double _longitude;
+class _EditLocationState extends State<EditLocation> {
+  Completer<GoogleMapController> _controller = Completer();
+  Map data = {};
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
 
   @override
   Widget build(BuildContext context) {
+    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+    LatLng _center = data['_center'];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
         centerTitle: true,
-        title: Text('Location'),
+        title: Text('Edit Location'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              child: Icon(
-                Icons.edit_location
-              ),
-              onPressed: () {
-                _currentPosition = locationService.getCurrentLocation();
-                _currentPosition.then((Position position) {
-                  //print(position.toJson());
-                  _latitude = position.latitude;
-                  _longitude = position.longitude;
-                  print(position);
-                  _currentPlacemark = locationService.getCurrentAddress(position);
-                });
-                _currentPlacemark.then((Placemark placemark) {
-                  locationService.getDistanceBetweenPoints(_latitude, _longitude, 24.723757, -81.081161).then((double value) {
-                    print(value);
-                  });
-                });
-              },
-              color: Colors.amber,
-            )
-          ],
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: _center,
+          zoom: 11.0,
         ),
       )
     );

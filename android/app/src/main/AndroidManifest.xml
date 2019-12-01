@@ -14,7 +14,8 @@
             android:label="lend_a_hand"
             android:icon="@mipmap/ic_launcher">
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDNxE7rUhBvQJxNDJs-Mjne6EPbCl28b_E"/>
 
         <activity
