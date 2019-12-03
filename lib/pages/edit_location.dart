@@ -7,8 +7,6 @@ import 'package:google_maps_webservice/places.dart';
 
 const googlePlacesApiKey = "AIzaSyDNxE7rUhBvQJxNDJs-Mjne6EPbCl28b_E";
 
-GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: googlePlacesApiKey);
-
 class EditLocation extends StatefulWidget {
   @override
   _EditLocationState createState() => _EditLocationState();
@@ -16,8 +14,17 @@ class EditLocation extends StatefulWidget {
 
 class _EditLocationState extends State<EditLocation> {
   Completer<GoogleMapController> _controller = Completer();
+  GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: googlePlacesApiKey);
+  final _locationScaffoldKey = GlobalKey<ScaffoldState>();
+
   Map _data = {};
-  Set<Marker> _markers = Set();
+  bool _userSetMarker = false;
+
+  LatLng _initialPosition;
+  Set<Marker> _initialMarkers = Set();
+
+  LatLng _userPosition;
+  Set<Marker> _userMarkers = Set();
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
@@ -25,16 +32,9 @@ class _EditLocationState extends State<EditLocation> {
 
   @override
   Widget build(BuildContext context) {
-    _data = _data.isNotEmpty ? _data : ModalRoute.of(context).settings.arguments;
-    LatLng _center = _data['_center'];
-    Marker _initialPosition = Marker(
-      draggable: true,
-      markerId: MarkerId('1'),
-      position: _center,
-      icon: BitmapDescriptor.defaultMarker,
-    );
-
-    _markers.add(_initialPosition);
+    if (_userSetMarker == false) {
+      setupInitialPosition(context);
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -58,10 +58,9 @@ class _EditLocationState extends State<EditLocation> {
             Container(
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
-                markers: _markers,
-                onCameraMove: ((_position) => _updateMarker(_position)),
+                markers: _userMarkers.isNotEmpty ? _userMarkers : _initialMarkers,
                 initialCameraPosition: CameraPosition(
-                  target: _center,
+                  target: _initialPosition,
                   zoom: 11.0,
                 ),
               ),
@@ -89,8 +88,9 @@ class _EditLocationState extends State<EditLocation> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding:
-                                EdgeInsets.symmetric(horizontal: 15),
+                            EdgeInsets.symmetric(horizontal: 15),
                             hintText: "Search Google Maps"),
+                        onTap: handleSearchTap,
                       ),
                     ),
                     Padding(
@@ -107,24 +107,68 @@ class _EditLocationState extends State<EditLocation> {
         ));
   }
 
-  void _updateMarker(CameraPosition position) {
-    LatLng newMarkerPosition =
-        LatLng(position.target.latitude, position.target.longitude);
-//    var initialMarker = _markers.firstWhere((marker) => marker.markerId == MarkerId('1'),
-//        orElse: () => null);
-//    _markers.remove(initialMarker);
-//    _markers.add(Marker(
-//        draggable: true,
-//        markerId: MarkerId('1'),
-//        position: newMarkerPosition,
-//        icon: BitmapDescriptor.defaultMarker));
-//    setState(() {});
-    var marker = _markers.first;
-    setState(() {
-      _markers.remove(marker);
-      _markers.add(marker.copyWith(
-          positionParam:
-              LatLng(newMarkerPosition.latitude, newMarkerPosition.longitude)));
-    });
+  void setupInitialPosition(BuildContext context) {
+    _data = _data.isNotEmpty ? _data : ModalRoute.of(context).settings.arguments;
+    _initialPosition = _data['_center'];
+
+    Marker _initialMarker = Marker(
+      draggable: false,
+      markerId: MarkerId('1'),
+      position: _initialPosition,
+      icon: BitmapDescriptor.defaultMarker,
+    );
+    _initialMarkers.add(_initialMarker);
+  }
+
+  Future<void> handleSearchTap() async {
+    Prediction prediction = await PlacesAutocomplete.show(
+      context: context,
+      apiKey: googlePlacesApiKey,
+      onError: onError,
+      mode: Mode.overlay,
+      language: "en",
+      components: [Component(Component.country, "us")],
+    );
+
+    setLocation(prediction);
+  }
+
+  void onError(PlacesAutocompleteResponse response) {
+    _locationScaffoldKey.currentState.showSnackBar(
+      SnackBar(content: Text(response.errorMessage)),
+    );
+  }
+
+  Future<Null> setLocation(Prediction p) async {
+    if (p != null) {
+
+      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+      final latitude = detail.result.geometry.location.lat;
+      final longitude = detail.result.geometry.location.lng;
+
+      setState(() {
+        _userPosition = LatLng(latitude, longitude);
+        Marker _userMarker = Marker(
+          draggable: false,
+          markerId: MarkerId('1'),
+          position: _userPosition,
+          icon: BitmapDescriptor.defaultMarker,
+        );
+        _userMarkers.add(_userMarker);
+        _userSetMarker = true;
+      });
+
+      Future.delayed(Duration(milliseconds: 10), () async {
+        GoogleMapController controller = await _controller.future;
+        controller.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: _userPosition,
+              zoom: 11.0,
+            ),
+          ),
+        );
+      });
+    }
   }
 }
