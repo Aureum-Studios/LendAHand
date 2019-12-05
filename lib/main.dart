@@ -6,28 +6,27 @@ import 'package:provider/provider.dart';
 import 'pages/home_page.dart';
 import 'pages/login_page.dart';
 
-void main() =>
-		runApp(ChangeNotifierProvider<AuthService>(
-				child: MyApp(),
-				builder: (BuildContext context) {
-					return AuthService();
-				}));
+void main() => runApp(ChangeNotifierProvider<AuthService>(
+    child: MyApp(),
+    builder: (BuildContext context) {
+      return AuthService();
+    }));
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'LendAHAnd',
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: FutureBuilder(
-          future: Provider.of<AuthService>(context).getUser(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.error != null) {
-                print("error");
-                return Text(snapshot.error.toString());
-              }
-              return snapshot.hasData ? HomePage() : LoginPage();
+				title: 'LendAHand',
+				theme: ThemeData(primarySwatch: Colors.blue),
+				home: FutureBuilder(
+					future: Provider.of<AuthService>(context).getUser(),
+					builder: (context, AsyncSnapshot snapshot) {
+						if (snapshot.connectionState == ConnectionState.done) {
+							if (snapshot.error != null) {
+								print("error");
+								return Text(snapshot.error.toString());
+							}
+							return snapshot.hasData ? HomePage() : LoginPage();
             } else {
               return LoadingCircle();
             }

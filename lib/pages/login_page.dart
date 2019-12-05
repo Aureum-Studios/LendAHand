@@ -50,8 +50,8 @@ class _LoginPageState extends State<LoginPage> {
                         // Validate will return true if is valid, or false if invalid.
                         if (form.validate()) {
                           try {
-														FirebaseUser result =
-														await Provider.of<AuthService>(context).loginUser(email: _email, password: _password);
+                            FirebaseUser result =
+                                await Provider.of<AuthService>(context).loginUser(email: _email, password: _password);
                             print(result);
                           } on AuthException catch (error) {
                             // handle the firebase specific error
