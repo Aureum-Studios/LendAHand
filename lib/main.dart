@@ -6,18 +6,17 @@ import 'package:provider/provider.dart';
 import 'pages/home_page.dart';
 import 'pages/login_page.dart';
 
-void main() =>
-		runApp(ChangeNotifierProvider<AuthService>(
-				child: MyApp(),
-				builder: (BuildContext context) {
-					return AuthService();
-				}));
+void main() => runApp(ChangeNotifierProvider<AuthService>(
+    child: MyApp(),
+    builder: (BuildContext context) {
+      return AuthService();
+    }));
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'LendAHAnd',
+        title: 'LendAHand',
         theme: ThemeData(primarySwatch: Colors.blue),
         home: FutureBuilder(
           future: Provider.of<AuthService>(context).getUser(),
@@ -27,8 +26,6 @@ class MyApp extends StatelessWidget {
                 print("error");
                 return Text(snapshot.error.toString());
               }
-              // redirect to the proper page, pass the user into the
-              // `HomePage` so we can display the user email in welcome msg     ⇐ NEW
               return snapshot.hasData ? HomePage() : LoginPage();
             } else {
               return LoadingCircle();

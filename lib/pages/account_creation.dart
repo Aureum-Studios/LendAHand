@@ -31,18 +31,12 @@ class _AccountCreationState extends State<AccountCreation> {
                 padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
                 child: TextFormField(
                   decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.0)),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
                       hintText: 'Ex johndoe@email.com',
                       labelText: 'EMAIL'),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => EmailValidator.validate(value)
-                      ? null
-                      : 'Please enter a valid email',
+                  validator: (value) => EmailValidator.validate(value) ? null : 'Please enter a valid email',
                   onSaved: (value) => email = value,
                 ),
               ),
@@ -50,39 +44,32 @@ class _AccountCreationState extends State<AccountCreation> {
                 padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 5.0),
                 child: TextFormField(
                   decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.0)),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
                       hintText: 'Ex John Doe',
                       labelText: 'NAME'),
-                  validator: (value) =>
-                      value.isNotEmpty ? null : 'Please enter a name',
+                  validator: (value) => value.isNotEmpty ? null : 'Please enter a name',
                   onSaved: (value) => name = value,
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 5.0),
                 child: TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0)),
-                    labelText: 'PASSWORD',
-                  ),
-                  validator: (value) {
-                    if (value.length < 8)
-                      return 'Invalid password, minimum length: 8 characters';
-                    else if (value.length > 16)
-                      return 'Invalid password, maximum length 16 characters';
-                    else
-                      return null;
-                  },
-                  onSaved: (value) => password = value,
+									obscureText: true,
+									decoration: const InputDecoration(
+										focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+										enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+										labelText: 'PASSWORD',
+									),
+									validator: (value) {
+										if (value.length < 8)
+											return 'Invalid password, minimum length: 8 characters';
+										else if (value.length > 16)
+											return 'Invalid password, maximum length 16 characters';
+										else
+											return null;
+									},
+									onSaved: (value) => password = value,
                 ),
               ),
               Container(

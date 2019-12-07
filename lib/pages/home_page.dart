@@ -31,10 +31,7 @@ class _HomePageState extends State<HomePage> {
             Text(
 //              "Welcome ${widget.currentUser.email}",
               "Welcome",
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
             ),
             SizedBox(height: 20.0),
             RaisedButton(
