@@ -1,20 +1,35 @@
-![MADE WITH](https://img.shields.io/static/v1.svg?labelColor=lightgray&color=gray&label=MADE%20WITH&message=FLUTTER&logo=flutter&logoColor=blue&style=for-the-badge&cacheSeconds=33600)
+[![MADE WITH](https://img.shields.io/static/v1.svg?labelColor=lightgray&color=gray&label=MADE%20WITH&message=FLUTTER&logo=flutter&logoColor=blue&style=for-the-badge&cacheSeconds=33600)](https://flutter.dev/)
 
 [![Codemagic build status](https://api.codemagic.io/apps/5dc997411de6024542cbccf2/5dc997411de6024542cbccf1/status_badge.svg)](https://codemagic.io/apps/5dc997411de6024542cbccf2/5dc997411de6024542cbccf1/latest_build)
 
-# lend_a_hand
+# Lend A Hand
 
-A new Flutter project.
+###### Description needs to be added
 
-## Getting Started
+## Using Firebase
 
-This project is a starting point for a Flutter application.
+After accesing the [Firebase Console](https://console.firebase.google.com/u/0/) you will see that we already have quite 
+a few things setup:
 
-A few resources to get you started if this is your first Flutter project:
+- Authentication
+- Analytics
+- Crashlytics
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+To validate, just go through each tab. Furthermore the [`pubspec.yml`](./pubspec.yaml) shows it.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Adding New Firebase Features
+
+To add new firebase features, you must likely will need to modify:
+
+- Project level (Android) [`build.gradle`](./android/build.gradle)
+- App level (Android) [`build.gradle`](./android/app/build.gradle)
+- Podfile (iOS) [`Podfile`](./ios/Podfile)
+
+**NOTE:** You don't need Xcode for this, just CocoaPods.
+
+These additions require a hot restart, and perhaps running `pod install` or `gradle build` on command line, 
+although Flutter `main.dart` run should trigger all this.
+## Useful Resources
+* [Firebase Console](https://console.firebase.google.com/u/0/)
+* [Google Play Console](https://play.google.com/apps/publish/?account=8413851140364268209#AppListPlace)
+* [Codemagic](https://codemagic.io/apps/5dc997411de6024542cbccf2/5dc997411de6024542cbccf1/latest_build)

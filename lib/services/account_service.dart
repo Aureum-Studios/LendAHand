@@ -1,5 +1,4 @@
 class AccountService {
-
   String email;
   String name;
   String password;
