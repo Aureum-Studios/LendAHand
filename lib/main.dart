@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/pages/account_creation.dart';
+import 'package:lend_a_hand/pages/chat_list.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
 import 'package:lend_a_hand/pages/loading_location.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.error != null) {
                 print("error");
-                return Text(snapshot.error.toString());
+                return Text('${snapshot.error.toString()}');
               }
               return snapshot.hasData ? HomePage() : LoginPage();
             } else {
@@ -50,6 +51,9 @@ class MyApp extends StatelessWidget {
               break;
             case '/editLocation':
               return MaterialPageRoute(builder: (context) => EditLocation());
+              break;
+            case '/chatList':
+              return MaterialPageRoute(builder: (context) => ChatList());
               break;
             default:
               return MaterialPageRoute(builder: (context) => HomePage());

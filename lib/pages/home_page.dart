@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-//  final FirebaseUser currentUser;
 
   HomePage();
 
@@ -12,6 +12,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  FirebaseAuth _auth;
+  FirebaseUser _firebaseUser;
+  String accountStatus;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _auth = FirebaseAuth.instance;
+    getCurrentUser();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +33,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
+            Text('Account status: $accountStatus'),
             SizedBox(height: 20.0),
             Text(
               'Home Page Flutter Firebase  Content',
@@ -35,6 +47,13 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 20.0),
             RaisedButton(
+              child: Icon(Icons.message),
+              onPressed: () {
+                Navigator.pushNamed(context, '/chatList');
+              },
+            ),
+            SizedBox(height: 20.0),
+            RaisedButton(
                 child: Text("LOGOUT"),
                 onPressed: () async {
                   await Provider.of<AuthService>(context).logout();
@@ -43,5 +62,13 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  getCurrentUser() async {
+    _firebaseUser = await _auth.currentUser();
+    print('Hello ${_firebaseUser.email.toString()}');
+    setState(() {
+      _firebaseUser != null ? accountStatus = 'Signed In' : 'Not Signed In';
+    });
   }
 }
