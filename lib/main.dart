@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.error != null) {
-                print("error");
+                print(snapshot.error.toString());
                 return Text(snapshot.error.toString());
               }
               return snapshot.hasData ? HomePage() : LoginPage();
@@ -36,13 +36,10 @@ class MyApp extends StatelessWidget {
           switch (settings.name) {
             case '/home':
               return MaterialPageRoute(builder: (context) => HomePage());
-              break;
             case '/accountCreation':
               return MaterialPageRoute(builder: (context) => AccountCreation());
-              break;
             case '/login':
               return MaterialPageRoute(builder: (context) => LoginPage());
-              break;
             default:
               return MaterialPageRoute(builder: (context) => HomePage());
           }
