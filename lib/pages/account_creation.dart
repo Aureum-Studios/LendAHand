@@ -1,6 +1,9 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/services/account_service.dart';
+import 'package:lend_a_hand/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class AccountCreation extends StatefulWidget {
   @override
@@ -9,9 +12,9 @@ class AccountCreation extends StatefulWidget {
 
 class _AccountCreationState extends State<AccountCreation> {
   final GlobalKey<FormState> _accountKey = new GlobalKey<FormState>();
-  String email;
-  String name;
-  String password;
+  String _email;
+  String _name;
+  String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class _AccountCreationState extends State<AccountCreation> {
                       labelText: 'EMAIL'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) => EmailValidator.validate(value) ? null : 'Please enter a valid email',
-                  onSaved: (value) => email = value,
+                  onSaved: (value) => _email = value,
                 ),
               ),
               Container(
@@ -49,7 +52,7 @@ class _AccountCreationState extends State<AccountCreation> {
                       hintText: 'Ex John Doe',
                       labelText: 'NAME'),
                   validator: (value) => value.isNotEmpty ? null : 'Please enter a name',
-                  onSaved: (value) => name = value,
+                  onSaved: (value) => _name = value,
                 ),
               ),
               Container(
@@ -69,18 +72,28 @@ class _AccountCreationState extends State<AccountCreation> {
                     else
                       return null;
                   },
-                  onSaved: (value) => password = value,
+                  onSaved: (value) => _password = value,
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 5.0),
                 child: RaisedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_accountKey.currentState.validate()) {
                       _accountKey.currentState.save();
 
                       //Call Firebase to create Authenticated User.
-                      accountService.saveAccount(email, name, password);
+                      try {
+                        FirebaseUser result = await Provider.of<AuthService>(context).createUser(email: _email, password: _password);
+                        print(result);
+                        Navigator.pushReplacementNamed(context, '/home');
+                      } on AuthException catch (error) {
+                        // handle the firebase specific error
+                        return _buildErrorDialog(context, error.message);
+                      } on Exception catch (error) {
+                        // gracefully handle anything else that might happen..
+                        return _buildErrorDialog(context, error.toString());
+                      }
                     }
                   },
                   color: Colors.amber,
@@ -93,4 +106,23 @@ class _AccountCreationState extends State<AccountCreation> {
       ),
     );
   }
+}
+
+Future _buildErrorDialog(BuildContext context, _message) {
+  return showDialog(
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Error Message'),
+        content: Text(_message),
+        actions: [
+          FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              })
+        ],
+      );
+    },
+    context: context,
+  );
 }
