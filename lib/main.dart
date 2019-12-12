@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/pages/account_creation.dart';
+import 'package:lend_a_hand/pages/edit_location.dart';
+import 'package:lend_a_hand/pages/loading_location.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +42,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (context) => AccountCreation());
             case '/login':
               return MaterialPageRoute(builder: (context) => LoginPage());
+            case '/loadLocation':
+              return MaterialPageRoute(builder: (context) => LoadingLocation());
+            case '/editLocation':
+              return MaterialPageRoute(builder: (context) => EditLocation());
             default:
               return MaterialPageRoute(builder: (context) => HomePage());
           }
