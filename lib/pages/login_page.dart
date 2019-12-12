@@ -62,6 +62,20 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         }
                       }),
+                  RaisedButton(
+                      child: Text("LOGIN WITH FACEBOOK"),
+                      onPressed: () async {
+                        try {
+                          FirebaseUser result = await Provider.of<AuthService>(context).loginWithFacebook();
+                          print(result);
+                        } on AuthException catch (error) {
+                          // handle the firebase specific error
+                          return _buildErrorDialog(context, error.message);
+                        } on Exception catch (error) {
+                          // gracefully handle anything else that might happen..
+                          return _buildErrorDialog(context, error.toString());
+                        }
+                      }),
                 ],
               ))),
     );

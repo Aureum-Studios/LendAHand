@@ -55,21 +55,21 @@ class _AccountCreationState extends State<AccountCreation> {
               Container(
                 padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 5.0),
                 child: TextFormField(
-									obscureText: true,
-									decoration: const InputDecoration(
-										focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
-										enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
-										labelText: 'PASSWORD',
-									),
-									validator: (value) {
-										if (value.length < 8)
-											return 'Invalid password, minimum length: 8 characters';
-										else if (value.length > 16)
-											return 'Invalid password, maximum length 16 characters';
-										else
-											return null;
-									},
-									onSaved: (value) => password = value,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+                    labelText: 'PASSWORD',
+                  ),
+                  validator: (value) {
+                    if (value.length < 8)
+                      return 'Invalid password, minimum length: 8 characters';
+                    else if (value.length > 16)
+                      return 'Invalid password, maximum length 16 characters';
+                    else
+                      return null;
+                  },
+                  onSaved: (value) => password = value,
                 ),
               ),
               Container(
