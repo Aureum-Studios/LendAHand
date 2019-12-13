@@ -49,7 +49,9 @@ class _HomePageState extends State<HomePage> {
             RaisedButton(
               child: Icon(Icons.message),
               onPressed: () {
-                Navigator.pushNamed(context, '/chatList');
+                Navigator.pushNamed(context, '/chatList', arguments: {
+                  'firebaseUser': _firebaseUser
+                });
               },
             ),
             SizedBox(height: 20.0),
