@@ -117,7 +117,7 @@ Future _buildErrorDialog(BuildContext context, _message) {
         actions: [
           FlatButton(
               child: Text('Cancel'),
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(context).pop();
               })
         ],
