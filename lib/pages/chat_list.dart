@@ -23,7 +23,7 @@ class _ChatListState extends State<ChatList> {
     if (_controller.text.length > 0) {
       await _firestore
           .collection('messages')
-          .add({'text': _controller.text, 'sender': widget.firebaseUser.email});
+          .add({'text': _controller.text, 'sender': widget.firebaseUser.email, 'date': DateTime.now().toIso8601String().toString()});
       _controller.clear();
       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
           curve: Curves.easeOut, duration: Duration(milliseconds: 300));
@@ -44,19 +44,18 @@ class _ChatListState extends State<ChatList> {
             children: <Widget>[
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('messages').snapshots(),
+                  stream: _firestore.collection('messages').orderBy('date').snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData)
                       return Center(child: CircularProgressIndicator());
 
                     List<DocumentSnapshot> docs = snapshot.data.documents;
-                    List<Widget> messages = docs.map((doc) {
+                    List<Widget> messages = docs.map((doc) =>
                       new Message(
                           sender: doc.data['sender'],
                           text: doc.data['text'],
-                          user:
-                              widget.firebaseUser.email == doc.data['sender']);
-                    }).toList();
+                          user: widget.firebaseUser.email == doc.data['sender'])
+                    ).toList();
 
                     return ListView(
                       controller: _scrollController,

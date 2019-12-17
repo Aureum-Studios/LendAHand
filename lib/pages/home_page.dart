@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lend_a_hand/pages/chat_list.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -49,9 +50,9 @@ class _HomePageState extends State<HomePage> {
             RaisedButton(
               child: Icon(Icons.message),
               onPressed: () {
-                Navigator.pushNamed(context, '/chatList', arguments: {
-                  'firebaseUser': _firebaseUser
-                });
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => ChatList(firebaseUser: _firebaseUser)
+                ));
               },
             ),
             SizedBox(height: 20.0),
