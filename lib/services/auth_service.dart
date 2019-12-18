@@ -15,10 +15,12 @@ class AuthService with ChangeNotifier {
   }
 
   Future<FirebaseUser> getUser() {
+    print('called get user');
     return _auth.currentUser();
   }
 
   Future<void> logout() async {
+    print('logout');
     var result = _auth.signOut();
     notifyListeners();
     return result;

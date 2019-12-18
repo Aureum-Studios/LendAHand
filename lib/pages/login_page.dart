@@ -70,9 +70,11 @@ class _LoginPageState extends State<LoginPage> {
                           print(result);
                         } on AuthException catch (error) {
                           // handle the firebase specific error
+                          print('error here');
                           return _buildErrorDialog(context, error.message);
                         } on Exception catch (error) {
                           // gracefully handle anything else that might happen..
+                          print('error here 2');
                           return _buildErrorDialog(context, error.toString());
                         }
                       }),
