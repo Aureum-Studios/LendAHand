@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 
 class ChatList extends StatefulWidget {
@@ -31,6 +32,12 @@ class _ChatListState extends State<ChatList> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -48,6 +55,14 @@ class _ChatListState extends State<ChatList> {
                   builder: (context, snapshot) {
                     if (!snapshot.hasData)
                       return Center(child: CircularProgressIndicator());
+
+                    SchedulerBinding.instance.addPostFrameCallback((_) {
+                      _scrollController.animateTo(
+                        _scrollController.position.maxScrollExtent,
+                        curve: Curves.easeOut,
+                        duration: const Duration(milliseconds: 300),
+                      );
+                    });
 
                     List<DocumentSnapshot> docs = snapshot.data.documents;
                     List<Widget> messages = docs.map((doc) =>
