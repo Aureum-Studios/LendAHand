@@ -70,11 +70,23 @@ class _LoginPageState extends State<LoginPage> {
                           print(result);
                         } on AuthException catch (error) {
                           // handle the firebase specific error
-                          print('error here');
                           return _buildErrorDialog(context, error.message);
                         } on Exception catch (error) {
                           // gracefully handle anything else that might happen..
-                          print('error here 2');
+                          return _buildErrorDialog(context, error.toString());
+                        }
+                      }),
+                  RaisedButton(
+                      child: Text("LOGIN WITH GOOGLE"),
+                      onPressed: () async {
+                        try {
+                          FirebaseUser result = await Provider.of<AuthService>(context).loginWithGoogle();
+                          print(result);
+                        } on AuthException catch (error) {
+                          // handle the firebase specific error
+                          return _buildErrorDialog(context, error.message);
+                        } on Exception catch (error) {
+                          // gracefully handle anything else that might happen..
                           return _buildErrorDialog(context, error.toString());
                         }
                       }),
