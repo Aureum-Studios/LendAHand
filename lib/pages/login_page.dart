@@ -59,6 +59,11 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       }),
                   RaisedButton(
+                      child: Text("REGISTER"),
+                      onPressed: () async {
+                        Navigator.pushNamed(context, '/accountCreation');
+                      }),
+                  RaisedButton(
                       child: Text("LOGIN WITH FACEBOOK"),
                       onPressed: () async {
                         try {

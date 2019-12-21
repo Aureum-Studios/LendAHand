@@ -23,7 +23,15 @@ class AuthService with ChangeNotifier {
     return result;
   }
 
-  Future createUser({String firstName, String lastName, String email, String password}) async {}
+  Future<FirebaseUser> createUser({String firstName, String lastName, String email, String password}) async {
+    try {
+      var result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      notifyListeners();
+      return result.user;
+    } catch (e) {
+      throw new AuthException(e.code, e.message);
+    }
+  }
 
   Future<FirebaseUser> loginWithFacebook() async {
     final facebookLogin = FacebookLogin();
