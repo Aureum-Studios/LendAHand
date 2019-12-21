@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login Page Flutter Firebase"),
+        title: Text("Login Page"),
       ),
       body: Container(
           padding: EdgeInsets.all(20.0),
@@ -43,21 +43,17 @@ class _LoginPageState extends State<LoginPage> {
                   RaisedButton(
                       child: Text("LOGIN"),
                       onPressed: () async {
-                        // save the fields..
                         final form = _formKey.currentState;
                         form.save();
 
-                        // Validate will return true if is valid, or false if invalid.
                         if (form.validate()) {
                           try {
                             FirebaseUser result =
                                 await Provider.of<AuthService>(context).loginUser(email: _email, password: _password);
                             print(result);
                           } on AuthException catch (error) {
-                            // handle the firebase specific error
                             return _buildErrorDialog(context, error.message);
                           } on Exception catch (error) {
-                            // gracefully handle anything else that might happen..
                             return _buildErrorDialog(context, error.toString());
                           }
                         }
@@ -69,10 +65,8 @@ class _LoginPageState extends State<LoginPage> {
                           FirebaseUser result = await Provider.of<AuthService>(context).loginWithFacebook();
                           print(result);
                         } on AuthException catch (error) {
-                          // handle the firebase specific error
                           return _buildErrorDialog(context, error.message);
                         } on Exception catch (error) {
-                          // gracefully handle anything else that might happen..
                           return _buildErrorDialog(context, error.toString());
                         }
                       }),
@@ -83,10 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                           FirebaseUser result = await Provider.of<AuthService>(context).loginWithGoogle();
                           print(result);
                         } on AuthException catch (error) {
-                          // handle the firebase specific error
                           return _buildErrorDialog(context, error.message);
                         } on Exception catch (error) {
-                          // gracefully handle anything else that might happen..
                           return _buildErrorDialog(context, error.toString());
                         }
                       }),

@@ -31,7 +31,7 @@ class AuthService with ChangeNotifier {
 
     switch (facebookLoginStatus.status) {
       case FacebookLoginStatus.loggedIn:
-				AuthCredential credential =
+        AuthCredential credential =
             FacebookAuthProvider.getCredential(accessToken: facebookLoginStatus.accessToken.token);
         FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
         notifyListeners();

@@ -23,15 +23,14 @@ class MyApp extends StatelessWidget {
         home: FutureBuilder(
           future: Provider.of<AuthService>(context).getUser(),
           builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.error != null) {
-                print(snapshot.error.toString());
-                return Text(snapshot.error.toString());
-              }
-              return snapshot.hasData ? HomePage() : LoginPage();
-            } else {
-              print("Tyring to load the circle");
-              return LoadingCircle();
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                if (snapshot.error != null) {
+                  return Text(snapshot.error.toString());
+                }
+                return snapshot.hasData ? HomePage() : LoginPage();
+              default:
+                return new Text('');
             }
           },
         ),
@@ -52,17 +51,5 @@ class MyApp extends StatelessWidget {
           }
         },
         debugShowCheckedModeBanner: false);
-  }
-}
-
-class LoadingCircle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: CircularProgressIndicator(),
-        alignment: Alignment(0.0, 0.0),
-      ),
-    );
   }
 }
