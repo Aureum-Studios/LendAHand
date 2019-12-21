@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>io.flutter.embedded_views_preview</key>
-    <true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -20,10 +18,44 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb558366461620222</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1083025695980-f7vf6ug42psdnbv8i1f09jp261dh1lg9</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FacebookAppID</key>
+	<string>558366461620222</string>
+	<key>FacebookDisplayName</key>
+	<string>Lend A Hand</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app needs access to location to work properly. Tap "Always Allow" to make nearby jobs feed possible. We'll access your location only when updating your nearby jobs and only when we really need it.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The app needs access to location in the background to work properly.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to make it easy for you to find nearby jobs and services.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -43,34 +75,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb558366461620222</string>
-      </array>
-      </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>558366461620222</string>
-    <key>FacebookDisplayName</key>
-    <string>Lend A Hand</string>
-
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>fbapi</string>
-      <string>fb-messenger-share-api</string>
-      <string>fbauth2</string>
-      <string>fbshareextension</string>
-    </array>
-
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>We use your location to make it easy for you to find nearby jobs and services.</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>The app needs access to location to work properly. Tap "Always Allow" to make nearby jobs feed possible. We'll access your location only when updating your nearby jobs and only when we really need it.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>The app needs access to location in the background to work properly.</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>
