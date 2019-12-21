@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
               }
               return snapshot.hasData ? HomePage() : LoginPage();
             } else {
-              print('loading circle');
+              print("Tyring to load the circle");
               return LoadingCircle();
             }
           },
