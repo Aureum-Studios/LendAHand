@@ -16,6 +16,7 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
+  var _messages;
 
   TextEditingController _controller = TextEditingController();
   ScrollController _scrollController = ScrollController();
@@ -35,6 +36,35 @@ class _ChatListState extends State<ChatList> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    _messages = StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('messages').orderBy('date').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
+          return Center(child: CircularProgressIndicator());
+
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            curve: Curves.easeOut,
+            duration: const Duration(milliseconds: 300),
+          );
+        });
+
+        List<DocumentSnapshot> docs = snapshot.data.documents;
+        List<Widget> messages = docs.map((doc) =>
+        new Message(
+            sender: doc.data['sender'],
+            text: doc.data['text'],
+            user: widget.firebaseUser.email == doc.data['sender'])
+        ).toList();
+
+        return ListView(
+          controller: _scrollController,
+          children: <Widget>[...messages],
+        );
+      },
+    );
   }
 
   @override
@@ -50,34 +80,7 @@ class _ChatListState extends State<ChatList> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Expanded(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('messages').orderBy('date').snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData)
-                      return Center(child: CircularProgressIndicator());
-
-                    SchedulerBinding.instance.addPostFrameCallback((_) {
-                      _scrollController.animateTo(
-                        _scrollController.position.maxScrollExtent,
-                        curve: Curves.easeOut,
-                        duration: const Duration(milliseconds: 300),
-                      );
-                    });
-
-                    List<DocumentSnapshot> docs = snapshot.data.documents;
-                    List<Widget> messages = docs.map((doc) =>
-                      new Message(
-                          sender: doc.data['sender'],
-                          text: doc.data['text'],
-                          user: widget.firebaseUser.email == doc.data['sender'])
-                    ).toList();
-
-                    return ListView(
-                      controller: _scrollController,
-                      children: <Widget>[...messages],
-                    );
-                  },
-                ),
+                child: _messages
               ),
               Container(
                   child: Row(
