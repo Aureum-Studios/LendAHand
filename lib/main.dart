@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/pages/account_creation.dart';
 import 'package:lend_a_hand/pages/chat_list.dart';
+import 'package:lend_a_hand/pages/conversation_page.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
 import 'package:lend_a_hand/pages/loading_location.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
