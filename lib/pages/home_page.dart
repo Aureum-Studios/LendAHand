@@ -56,6 +56,14 @@ class _HomePageState extends State<HomePage> {
                 ));
               },
             ),
+            RaisedButton(
+              child: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => Conversation(firebaseUser: _firebaseUser, reciever: 'john@aureum.studios.org')
+                ));
+              },
+            ),
             SizedBox(height: 20.0),
             RaisedButton(
                 child: Text("LOGOUT"),

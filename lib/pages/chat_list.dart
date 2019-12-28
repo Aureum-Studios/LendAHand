@@ -23,13 +23,16 @@ class _ChatListState extends State<ChatList> {
     super.initState();
 
     _conversations = FutureBuilder<QuerySnapshot>(
-      future: _firestore.collection("messages").document(widget.firebaseUser.email).collection('messages').getDocuments(),
+      future: _firestore.collection("users").document(widget.firebaseUser.email).collection('conversions').getDocuments(),
       builder: (context, snapshot) {
         if (!snapshot.hasData)
           return Center(child: CircularProgressIndicator());
 
+        print(snapshot.hasData);
+        print(snapshot.data.documents.isEmpty);
+
         List<Widget> conversations = snapshot.data.documents.map((doc) =>
-            new UserConversation(email: doc.documentID, userEmail: widget.firebaseUser.email)
+            new UserConversation(email: doc.documentID, firebaseUser: widget.firebaseUser)
         ).toList();
 
         return ListView(
@@ -63,11 +66,39 @@ class _ChatListState extends State<ChatList> {
 
 class UserConversation extends StatelessWidget {
   final String email;
-  final String userEmail;
+  final FirebaseUser firebaseUser;
 
-  const UserConversation({Key key, this.email, this.userEmail});
+  const UserConversation({Key key, this.email, this.firebaseUser});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
+          left: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
+          right: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
+          top: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber)
+        ),
+      ),
+      child: Row(
+        children: <Widget>[
+          Text(email),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0)),
+          FlatButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) => Conversation(reciever: email, firebaseUser: firebaseUser)
+              ));
+            },
+            color: Colors.amber,
+            child: Icon(
+              Icons.edit
+            ),
+          )
+        ],
+      ),
+    );
   }}

@@ -25,9 +25,11 @@ class _ConversationState extends State<Conversation> {
   Future<void> callback() async {
     if (_controller.text.length > 0) {
       await _firestore
-          .collection('messages')
+          .collection('users')
           .document(widget.firebaseUser.email)
-          .collection(widget.reciever)
+          .collection('conversions')
+          .document(widget.reciever)
+          .collection('messages')
           .add({'text': _controller.text, 'sender': widget.firebaseUser.email, 'date': DateTime.now().toIso8601String().toString()});
       _controller.clear();
       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
@@ -41,7 +43,13 @@ class _ConversationState extends State<Conversation> {
     super.initState();
 
     _messages = StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').orderBy('date').snapshots(),
+      stream: _firestore.collection('users')
+          .document(widget.firebaseUser.email)
+          .collection('conversions')
+          .document(widget.reciever)
+          .collection('messages')
+          .orderBy('date')
+          .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData)
           return Center(child: CircularProgressIndicator());
