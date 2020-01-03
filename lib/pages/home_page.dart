@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/pages/jobs_page.dart';
 import 'package:lend_a_hand/pages/loading_account.dart';
-import 'package:lend_a_hand/services/auth_service.dart';
-import 'package:provider/provider.dart';
-
 
 class HomePage extends StatefulWidget {
   HomePage();
@@ -32,11 +29,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            IconButton(
-                icon: new Icon(Icons.exit_to_app),
-                onPressed: () async {
-                  await Provider.of<AuthService>(context).logout();
-                })
+            PopupMenuButton(
+              itemBuilder: (BuildContext context) {
+                return [PopupMenuItem(child: Text("LOGOUT"))];
+              },
+            ),
           ],
           title: Text("Home"),
           //actions: <Widget>[LogoutButton()],
