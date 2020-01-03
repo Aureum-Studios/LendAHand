@@ -19,76 +19,98 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text("Login Page"),
       ),
-      body: Container(
-          padding: EdgeInsets.all(20.0),
-          child: Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 20.0), // <= NEW
-                  Text(
-                    'Login Information',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 20.0), // <= NEW
-                  TextFormField(
-                      onSaved: (value) => _email = value,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(labelText: "Email Address")),
-                  TextFormField(
-                      onSaved: (value) => _password = value,
-                      obscureText: true,
-                      decoration: InputDecoration(labelText: "Password")),
-                  SizedBox(height: 20.0), // <= NEW
-                  RaisedButton(
-                      child: Text("LOGIN"),
-                      onPressed: () async {
-                        final form = _formKey.currentState;
-                        form.save();
+      body: SingleChildScrollView(
+        child: Container(
+            padding: EdgeInsets.all(20.0),
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Login Information',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    TextFormField(
+                        onSaved: (value) => _email = value,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                            labelText: "Email Address")),
+                    TextFormField(
+                        onSaved: (value) => _password = value,
+                        obscureText: true,
+                        decoration: InputDecoration(labelText: "Password")),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: RaisedButton(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text("LOGIN"),
+                          onPressed: () async {
+                            final form = _formKey.currentState;
+                            form.save();
 
-                        if (form.validate()) {
+                            if (form.validate()) {
+                              try {
+                                FirebaseUser result =
+                                await Provider.of<AuthService>(context)
+                                    .loginUser(
+                                    email: _email, password: _password);
+                                print(result);
+                              } on AuthException catch (error) {
+                                return _buildErrorDialog(
+                                    context, error.message);
+                              } on Exception catch (error) {
+                                return _buildErrorDialog(
+                                    context, error.toString());
+                              }
+                            }
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RaisedButton(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text("LOGIN WITH FACEBOOK"),
+                          onPressed: () async {
+                            try {
+                              FirebaseUser result =
+                              await Provider.of<AuthService>(context)
+                                  .loginWithFacebook();
+                              print(result);
+                            } on AuthException catch (error) {
+                              return _buildErrorDialog(context, error.message);
+                            } on Exception catch (error) {
+                              return _buildErrorDialog(context, error
+                                  .toString());
+                            }
+                          }),
+                    ),
+                    RaisedButton(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text("LOGIN WITH GOOGLE"),
+                        onPressed: () async {
                           try {
                             FirebaseUser result =
-                                await Provider.of<AuthService>(context).loginUser(email: _email, password: _password);
+                            await Provider.of<AuthService>(context)
+                                .loginWithGoogle();
                             print(result);
                           } on AuthException catch (error) {
                             return _buildErrorDialog(context, error.message);
                           } on Exception catch (error) {
                             return _buildErrorDialog(context, error.toString());
                           }
-                        }
-                      }),
-                  RaisedButton(
-                      child: Text("REGISTER"),
-                      onPressed: () async {
-                        Navigator.pushNamed(context, '/accountCreation');
-                      }),
-                  RaisedButton(
-                      child: Text("LOGIN WITH FACEBOOK"),
-                      onPressed: () async {
-                        try {
-                          FirebaseUser result = await Provider.of<AuthService>(context).loginWithFacebook();
-                          print(result);
-                        } on AuthException catch (error) {
-                          return _buildErrorDialog(context, error.message);
-                        } on Exception catch (error) {
-                          return _buildErrorDialog(context, error.toString());
-                        }
-                      }),
-                  RaisedButton(
-                      child: Text("LOGIN WITH GOOGLE"),
-                      onPressed: () async {
-                        try {
-                          FirebaseUser result = await Provider.of<AuthService>(context).loginWithGoogle();
-                          print(result);
-                        } on AuthException catch (error) {
-                          return _buildErrorDialog(context, error.message);
-                        } on Exception catch (error) {
-                          return _buildErrorDialog(context, error.toString());
-                        }
-                      }),
-                ],
-              ))),
+                        }),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 32.0),
+                      child: RaisedButton(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text("CREATE ACCOUNT"),
+                          onPressed: () async {
+                            Navigator.pushNamed(context, '/accountCreation');
+                          }),
+                    ),
+                  ],
+                ))),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 name: lend_a_hand
 description: A new Flutter project.
 
+#TODO: Change app name in android. Right now it is showing `lend-a-hand`
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
