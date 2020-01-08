@@ -1,7 +1,6 @@
 name: lend_a_hand
 description: A new Flutter project.
 
-#TODO: Change app name in android. Right now it is showing `lend-a-hand`
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
@@ -21,6 +20,7 @@ dependencies:
   google_sign_in: ^4.1.1
   cloud_firestore: ^0.12.10
   provider: ^3.1.0+1
+  intl: ^0.16.1
   logger: ^0.7.0 #todo: add a global logger using this class, or possibly use dart:developer
   flutter_spinkit: "^4.0.0"
   email_validator: '^1.0.0'
