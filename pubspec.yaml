@@ -1,6 +1,7 @@
 name: lend_a_hand
 description: A new Flutter project.
 
+#TODO: Change app name in android. Right now it is showing `lend-a-hand`
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
@@ -18,7 +19,6 @@ dependencies:
   firebase_analytics: ^5.0.6
   flutter_facebook_login: ^3.0.0
   google_sign_in: ^4.1.1
-  #  cloud_firestore: ^0.12.10
   cloud_firestore: ^0.12.11
   firebase_storage: ^3.0.10
   provider: ^3.1.0+1
@@ -29,8 +29,6 @@ dependencies:
   http: ^0.12.0+2
   google_maps_flutter: ^0.5.11
   flutter_google_places: ^0.2.3
-  shared_preferences: ^0.5.4+8
-  image_picker: ^0.6.2+2
   flutter:
     sdk: flutter
 
