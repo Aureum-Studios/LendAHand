@@ -19,11 +19,12 @@ class _ChatListState extends State<ChatList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
+    // TODO: Need to create link between chat documents within collection to user's active chats to build out conversations list, currently mocked.
     _conversations = FutureBuilder<QuerySnapshot>(
-      future: _firestore.collection("users").document(widget.firebaseUser.email).collection('conversions').getDocuments(),
+      future: _firestore.collection("chats")
+          .getDocuments(),
       builder: (context, snapshot) {
         if (!snapshot.hasData)
           return Center(child: CircularProgressIndicator());
@@ -72,7 +73,6 @@ class UserConversation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(

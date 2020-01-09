@@ -24,13 +24,11 @@ class _ConversationState extends State<Conversation> {
 
   Future<void> callback() async {
     if (_controller.text.length > 0) {
+      var data = {'text': _controller.text, 'sender': widget.firebaseUser.email, 'date': DateTime.now().toIso8601String().toString()};
       await _firestore
-          .collection('users')
+          .collection('chats')
           .document(widget.firebaseUser.email)
-          .collection('conversions')
-          .document(widget.reciever)
-          .collection('messages')
-          .add({'text': _controller.text, 'sender': widget.firebaseUser.email, 'date': DateTime.now().toIso8601String().toString()});
+          .updateData({'messages': FieldValue.arrayUnion([data])});
       _controller.clear();
       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
           curve: Curves.easeOut, duration: Duration(milliseconds: 300));
@@ -39,16 +37,11 @@ class _ConversationState extends State<Conversation> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    _messages = StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('users')
+    _messages = StreamBuilder<DocumentSnapshot>(
+      stream: _firestore.collection('chats')
           .document(widget.firebaseUser.email)
-          .collection('conversions')
-          .document(widget.reciever)
-          .collection('messages')
-          .orderBy('date')
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData)
@@ -62,13 +55,14 @@ class _ConversationState extends State<Conversation> {
           );
         });
 
-        List<DocumentSnapshot> docs = snapshot.data.documents;
-        List<Widget> messages = docs.map((doc) =>
+        DocumentSnapshot doc = snapshot.data;
+        List list = doc.data['messages'];
+        List<Widget> messages = list.map((message) =>
         new Message(
-            sender: doc.data['sender'],
-            text: doc.data['text'],
-            user: widget.firebaseUser.email == doc.data['sender'])
-        ).toList();
+          sender: message['sender'],
+          text: message['text'],
+          user: widget.firebaseUser.email == message['sender'],
+        )).toList();
 
         return ListView(
           controller: _scrollController,
