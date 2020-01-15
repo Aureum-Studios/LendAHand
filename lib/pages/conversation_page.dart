@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:lend_a_hand/services/auth_service.dart';
+import 'package:lend_a_hand/components/send_message_button.dart';
+import 'package:lend_a_hand/components/user_message.dart';
 
 class Conversation extends StatefulWidget {
   final FirebaseUser firebaseUser;
-  final String reciever;
+  final String receiver;
 
-  const Conversation({Key key, this.firebaseUser, this.reciever}) : super(key: key);
+  const Conversation({Key key, this.firebaseUser, this.receiver}) : super(key: key);
 
   @override
   _ConversationState createState() => _ConversationState();
@@ -24,7 +25,7 @@ class _ConversationState extends State<Conversation> {
 
   Future<void> callback() async {
     if (_controller.text.length > 0) {
-      var data = {'text': _controller.text, 'sender': widget.firebaseUser.email, 'date': DateTime.now().toIso8601String().toString()};
+      var data = {'text': _controller.text, 'sender': widget.firebaseUser.email, 'date': DateTime.now().toIso8601String()};
       await _firestore
           .collection('chats')
           .document(widget.firebaseUser.email)
@@ -55,8 +56,7 @@ class _ConversationState extends State<Conversation> {
           );
         });
 
-        DocumentSnapshot doc = snapshot.data;
-        List list = doc.data['messages'];
+        List list = snapshot.data.data['messages'];
         List<Widget> messages = list.map((message) =>
         new Message(
           sender: message['sender'],
@@ -108,51 +108,5 @@ class _ConversationState extends State<Conversation> {
             ],
           ),
         ));
-  }
-}
-
-class SendButton extends StatelessWidget {
-  final String text;
-  final VoidCallback callback;
-
-  const SendButton({Key key, this.text, this.callback}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: callback,
-      child: Text(text),
-      color: Colors.amber,
-    );
-  }
-}
-
-class Message extends StatelessWidget {
-  final String sender;
-  final String text;
-  final bool user;
-
-  const Message({Key key, this.sender, this.text, this.user}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment:
-            user ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(sender),
-          Material(
-            color: user ? Colors.blue : Colors.red,
-            borderRadius: BorderRadius.circular(10.0),
-            elevation: 6.0,
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-              child: Text(text),
-            ),
-          )
-        ],
-      ),
-    );
   }
 }

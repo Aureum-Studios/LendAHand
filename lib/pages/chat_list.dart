@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lend_a_hand/pages/conversation_page.dart';
+import 'package:lend_a_hand/components/user_conversation.dart';
 
 class ChatList extends StatefulWidget {
   final FirebaseUser firebaseUser;
@@ -23,8 +23,7 @@ class _ChatListState extends State<ChatList> {
 
     // TODO: Need to create link between chat documents within collection to user's active chats to build out conversations list, currently mocked.
     _conversations = FutureBuilder<QuerySnapshot>(
-      future: _firestore.collection("chats")
-          .getDocuments(),
+      future: _firestore.collection("chats").getDocuments(),
       builder: (context, snapshot) {
         if (!snapshot.hasData)
           return Center(child: CircularProgressIndicator());
@@ -46,11 +45,6 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-         title: Text('Messages'),
-         centerTitle: true,
-         backgroundColor: Colors.amber,
-       ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,41 +58,3 @@ class _ChatListState extends State<ChatList> {
     );
   }
 }
-
-class UserConversation extends StatelessWidget {
-  final String email;
-  final FirebaseUser firebaseUser;
-
-  const UserConversation({Key key, this.email, this.firebaseUser});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
-          left: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
-          right: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
-          top: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber)
-        ),
-      ),
-      child: Row(
-        children: <Widget>[
-          Text(email),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0)),
-          FlatButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) => Conversation(reciever: email, firebaseUser: firebaseUser)
-              ));
-            },
-            color: Colors.amber,
-            child: Icon(
-              Icons.edit
-            ),
-          )
-        ],
-      ),
-    );
-  }}

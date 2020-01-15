@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lend_a_hand/pages/chat_list.dart';
 import 'package:lend_a_hand/pages/jobs_page.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
+import 'package:lend_a_hand/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage();
@@ -22,16 +24,18 @@ class _HomePageState extends State<HomePage> {
   //TODO: Replace for rest of pages
   List<Widget> _pages = [
     JobsPage(key: PageStorageKey('JobsPage')),
-    ChatList(firebaseUser: _firebaseUser),
+    ChatList(key: PageStorageKey('ChatList'), firebaseUser: _firebaseUser),
     JobsPage(key: PageStorageKey('JobsPage2')),
     EditLocation(),
     JobsPage(key: PageStorageKey('JobsPage3')),
   ];
 
+  // TODO - Debug as to why provider.getUser() does not work will passed to future widgets.
   @override
   void initState() {
     super.initState();
-    getCurrentUser(FirebaseAuth.instance);
+    //getCurrentUser();
+    test(FirebaseAuth.instance);
   }
 
   @override
@@ -88,7 +92,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void getCurrentUser(FirebaseAuth _auth) async {
+  void getCurrentUser() async {
+    _firebaseUser = await Provider.of<AuthService>(context).getUser();
+  }
+
+  void test(FirebaseAuth _auth) async {
     _firebaseUser = await _auth.currentUser();
   }
 }
