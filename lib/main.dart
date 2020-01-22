@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/pages/account_creation.dart';
+import 'package:lend_a_hand/pages/chat_list.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
 import 'package:lend_a_hand/pages/loading_location.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
@@ -46,6 +47,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (context) => LoadingLocation());
             case '/editLocation':
               return MaterialPageRoute(builder: (context) => EditLocation());
+            case '/chatList':
+              return MaterialPageRoute(builder: (context) => ChatList());
             default:
               return MaterialPageRoute(builder: (context) => HomePage());
           }

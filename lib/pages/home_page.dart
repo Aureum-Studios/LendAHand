@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lend_a_hand/pages/chat_list.dart';
 import 'package:lend_a_hand/pages/jobs_page.dart';
-import 'package:lend_a_hand/pages/loading_account.dart';
+import 'package:lend_a_hand/pages/edit_location.dart';
+import 'package:lend_a_hand/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage();
@@ -13,16 +17,26 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
   new GlobalKey<RefreshIndicatorState>();
   int _currentIndex = 0;
+  static FirebaseUser _firebaseUser;
 
   final PageStorageBucket bucket = PageStorageBucket();
 
   //TODO: Replace for rest of pages
   List<Widget> _pages = [
     JobsPage(key: PageStorageKey('JobsPage')),
-    LoadingAccount(),
+    ChatList(key: PageStorageKey('ChatList'), firebaseUser: _firebaseUser),
     JobsPage(key: PageStorageKey('JobsPage2')),
+    EditLocation(),
     JobsPage(key: PageStorageKey('JobsPage3')),
   ];
+
+  // TODO - Debug as to why provider.getUser() does not work will passed to future widgets.
+  @override
+  void initState() {
+    super.initState();
+    //getCurrentUser();
+    test(FirebaseAuth.instance);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +67,14 @@ class _HomePageState extends State<HomePage> {
                 title: new Text('Messages'),
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person), title: Text('Profile')),
+                  icon: Icon(Icons.person),
+                  title: Text('Profile')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), title: Text('Settings'))
+                  icon: Icon(Icons.location_on),
+                  title: Text('Location')),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings),
+                  title: Text('Settings'))
             ]),
         body: RefreshIndicator(
           key: _refreshIndicatorKey,
@@ -71,6 +90,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  void getCurrentUser() async {
+    _firebaseUser = await Provider.of<AuthService>(context).getUser();
+  }
+
+  void test(FirebaseAuth _auth) async {
+    _firebaseUser = await _auth.currentUser();
   }
 }
 
