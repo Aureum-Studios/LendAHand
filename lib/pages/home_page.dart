@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/pages/chat_list.dart';
-import 'package:lend_a_hand/pages/jobs_page.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
+import 'package:lend_a_hand/pages/jobs_page.dart';
+import 'package:lend_a_hand/pages/user_profile.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _pages = [
     JobsPage(key: PageStorageKey('JobsPage')),
     ChatList(key: PageStorageKey('ChatList'), firebaseUser: _firebaseUser),
-    JobsPage(key: PageStorageKey('JobsPage2')),
+    UserProfile(),
     EditLocation(),
     JobsPage(key: PageStorageKey('JobsPage3')),
   ];
@@ -38,12 +39,13 @@ class _HomePageState extends State<HomePage> {
     test(FirebaseAuth.instance);
   }
 
+  //TODO: Implement correct logout logic
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            PopupMenuButton(
+            PopupMenuButton<String>(
               itemBuilder: (BuildContext context) {
                 return [PopupMenuItem(child: Text("LOGOUT"))];
               },
