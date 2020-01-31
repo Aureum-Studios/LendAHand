@@ -25,10 +25,6 @@ class _UserProfileState extends State<UserProfile> {
                       child: Center(
                         child: Column(
                           children: <Widget>[
-                            Text(
-                              'Your Information',
-                              style: TextStyle(fontSize: 20),
-                            ),
                             Padding(
                                 padding: const EdgeInsets.fromLTRB(
                                     8.0, 32.0, 8.0, 8.0),

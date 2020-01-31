@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lend_a_hand/pages/account_creation.dart';
-import 'package:lend_a_hand/pages/chat_list.dart';
+import 'package:lend_a_hand/pages/chat_list_page.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
 import 'package:lend_a_hand/pages/loading_location.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (context) => HomePage());
           }
         },
+        supportedLocales: [const Locale('en'), const Locale('es')],
         debugShowCheckedModeBanner: false);
   }
 }
