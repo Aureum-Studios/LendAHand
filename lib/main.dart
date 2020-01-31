@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lend_a_hand/pages/account_creation.dart';
 import 'package:lend_a_hand/pages/chat_list_page.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
 import 'package:lend_a_hand/pages/loading_location.dart';
+import 'package:lend_a_hand/services/app_localizations.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +55,12 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (context) => HomePage());
           }
         },
-        supportedLocales: [const Locale('en'), const Locale('es')],
+        supportedLocales: [const Locale('en', 'US'), const Locale('es', 'ES')],
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         debugShowCheckedModeBanner: false);
   }
 }

@@ -34,7 +34,9 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (value) => _email = value,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                            labelText: "Email Address")),
+                            labelText: MaterialLocalizations
+                                .of(context)
+                                .postMeridiemAbbreviation)),
                     TextFormField(
                         onSaved: (value) => _password = value,
                         obscureText: true,

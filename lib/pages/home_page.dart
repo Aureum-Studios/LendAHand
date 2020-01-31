@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
     test(FirebaseAuth.instance);
   }
 
-  //TODO: Implement correct logout logic
   @override
   Widget build(BuildContext context) {
     return Scaffold(
