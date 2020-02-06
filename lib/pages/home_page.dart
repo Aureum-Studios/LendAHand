@@ -44,9 +44,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           actions: <Widget>[
-            PopupMenuButton<String>(
+            PopupMenuButton<String>( // Put type of below widget here
               onSelected: _select,
               itemBuilder: (BuildContext context) {
+                //TODO: Create widget that take text and icon, return here.
                 return [PopupMenuItem(value: 'LOGOUT', child: Text('LOGOUT'))];
               },
             ),
