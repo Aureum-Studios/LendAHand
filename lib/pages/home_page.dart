@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lend_a_hand/pages/chat_list.dart';
-import 'package:lend_a_hand/pages/jobs_page.dart';
+import 'package:lend_a_hand/pages/chat_list_page.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
+import 'package:lend_a_hand/pages/jobs_page.dart';
+import 'package:lend_a_hand/pages/user_profile_page.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _pages = [
     JobsPage(key: PageStorageKey('JobsPage')),
     ChatList(key: PageStorageKey('ChatList'), firebaseUser: _firebaseUser),
-    JobsPage(key: PageStorageKey('JobsPage2')),
+    UserProfile(),
     EditLocation(),
     JobsPage(key: PageStorageKey('JobsPage3')),
   ];
@@ -42,14 +43,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          actions: [
-            PopupMenuButton(
+          actions: <Widget>[
+            PopupMenuButton<String>( // Put type of below widget here
+              onSelected: _select,
               itemBuilder: (BuildContext context) {
-                return [PopupMenuItem(child: Text("LOGOUT"))];
+                //TODO: Create widget that take text and icon, return here.
+                return [PopupMenuItem(value: 'LOGOUT', child: Text('LOGOUT'))];
               },
             ),
           ],
-          title: Text("Home"),
+          title: const Text("Home"),
           //actions: <Widget>[LogoutButton()],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -67,14 +70,11 @@ class _HomePageState extends State<HomePage> {
                 title: new Text('Messages'),
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text('Profile')),
+                  icon: Icon(Icons.person), title: Text('Profile')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.location_on),
-                  title: Text('Location')),
+                  icon: Icon(Icons.location_on), title: Text('Location')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  title: Text('Settings'))
+                  icon: Icon(Icons.settings), title: Text('Settings'))
             ]),
         body: RefreshIndicator(
           key: _refreshIndicatorKey,
@@ -99,9 +99,13 @@ class _HomePageState extends State<HomePage> {
   void test(FirebaseAuth _auth) async {
     _firebaseUser = await _auth.currentUser();
   }
-}
 
-Future<Null> _handleRefresh() async {
-  await new Future.delayed(new Duration(seconds: 3));
-  return null;
+  void _select(String value) async {
+    await Provider.of<AuthService>(context).logout();
+  }
+
+  Future<Null> _handleRefresh() async {
+    await new Future.delayed(new Duration(seconds: 3));
+    return null;
+  }
 }
