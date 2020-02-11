@@ -9,7 +9,7 @@ class JobWidget extends StatelessWidget {
   final GeoPoint location;
   final Timestamp datePosted;
 
-  DateFormat _format = new DateFormat('hh:mm - MM/dd/yy');
+  final DateFormat _format = new DateFormat('hh:mm - MM/dd/yy');
 
   // If the widget was to change to Stateful, then duplicate in State class
   // with private fields

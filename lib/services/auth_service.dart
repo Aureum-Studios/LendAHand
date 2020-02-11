@@ -11,7 +11,7 @@ class AuthService with ChangeNotifier {
 
   var currentUser;
 
-  AuthService() {}
+  AuthService();
 
   Future<FirebaseUser> getUser() {
     return _auth.currentUser();
