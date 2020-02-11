@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lend_a_hand/components/send_message_button.dart';
 import 'package:lend_a_hand/components/user_message.dart';
+import 'package:lend_a_hand/services/app_localizations.dart';
 
 class Conversation extends StatefulWidget {
   final FirebaseUser firebaseUser;
@@ -76,7 +77,8 @@ class _ConversationState extends State<Conversation> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Messages'),
+          title: Text(
+              AppLocalizations.of(context).translate('messages_page_title')),
           backgroundColor: Colors.amber,
           centerTitle: true,
         ),
@@ -95,12 +97,14 @@ class _ConversationState extends State<Conversation> {
                     onSubmitted: (value) => callback(),
                     controller: _controller,
                     decoration: InputDecoration(
-                      hintText: "Enter a message",
+                      hintText: AppLocalizations.of(context).translate
+                        ('message_input_hint'),
                       border: OutlineInputBorder(),
                     ),
                   )),
                   SendButton(
-                    text: "Send Message",
+                    text: AppLocalizations.of(context).translate(
+                        'send_message_hint'),
                     callback: callback,
                   )
                 ],

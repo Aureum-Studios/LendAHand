@@ -4,6 +4,7 @@ import 'package:lend_a_hand/pages/chat_list_page.dart';
 import 'package:lend_a_hand/pages/edit_location.dart';
 import 'package:lend_a_hand/pages/jobs_page.dart';
 import 'package:lend_a_hand/pages/user_profile_page.dart';
+import 'package:lend_a_hand/services/app_localizations.dart';
 import 'package:lend_a_hand/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -43,16 +44,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          title: Text(
+              AppLocalizations.of(context).translate('home_page_title')),
           actions: <Widget>[
             PopupMenuButton<String>( // Put type of below widget here
               onSelected: _select,
               itemBuilder: (BuildContext context) {
                 //TODO: Create widget that take text and icon, return here.
-                return [PopupMenuItem(value: 'LOGOUT', child: Text('LOGOUT'))];
+                return [PopupMenuItem(value: AppLocalizations.of(context)
+                    .translate('logout_button'),
+                    child: Text(AppLocalizations.of(context).translate(
+                        'logout_button')))
+                ];
               },
             ),
           ],
-          title: const Text("Home"),
           //actions: <Widget>[LogoutButton()],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -63,18 +69,26 @@ class _HomePageState extends State<HomePage> {
             items: [
               BottomNavigationBarItem(
                 icon: new Icon(Icons.home),
-                title: new Text('Home'),
+                title: new Text(
+                    AppLocalizations.of(context).translate('home_bar_item')),
               ),
               BottomNavigationBarItem(
                 icon: new Icon(Icons.mail),
-                title: new Text('Messages'),
+                title: new Text(AppLocalizations.of(context).translate(
+                    'messages_bar_item')),
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person), title: Text('Profile')),
+                  icon: Icon(Icons.person),
+                  title: Text(AppLocalizations.of(context).translate
+                    ('profile_bar_item'))),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.location_on), title: Text('Location')),
+                  icon: Icon(Icons.location_on),
+                  title: Text(AppLocalizations.of(context).translate
+                    ('location_bar_item'))),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), title: Text('Settings'))
+                  icon: Icon(Icons.settings),
+                  title: Text(AppLocalizations.of(context).translate
+                    ('settings_bar_item')))
             ]),
         body: RefreshIndicator(
           key: _refreshIndicatorKey,

@@ -46,7 +46,6 @@ class _AppLocalizationsDelegate
     return ['en', 'es'].contains(locale.languageCode);
   }
 
-  //TODO@OS: Potentially return the call to load directly.
   @override
   Future<AppLocalizations> load(Locale locale) async {
     AppLocalizations localizations = new AppLocalizations(locale);
