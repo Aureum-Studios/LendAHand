@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:lend_a_hand/services/location_service.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lend_a_hand/services/location_service.dart';
 
 class LoadingLocation extends StatefulWidget {
   @override
@@ -15,9 +15,7 @@ class _LoadingLocationState extends State<LoadingLocation> {
     await locationService.getCurrentLocation().then((position) {
       _center = LatLng(position.latitude, position.longitude);
     });
-    Navigator.pushReplacementNamed(context, '/editLocation', arguments: {
-      '_center': _center
-    });
+    Navigator.pushReplacementNamed(context, '/editLocation', arguments: {'_center': _center});
   }
 
   @override

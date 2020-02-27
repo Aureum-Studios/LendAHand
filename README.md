@@ -6,9 +6,17 @@
 
 ###### Description needs to be added
 
+## Developer Standards
+
+* When using string make sure to go through `AppLocalizations` to support internationalization.
+* Commit code using Dart formatting from IntelliJ | Android Studio.
+* Add necessary print statements, this will be replaced by logs in the future.
+* Keep activities/screens under `pages`, (almost) every other widget goes under `component`
+* Detach application logic from UI.
+
 ## Using Firebase
 
-After accesing the [Firebase Console](https://console.firebase.google.com/u/0/) you will see that we already have quite 
+After accessing the [Firebase Console](https://console.firebase.google.com/u/0/) you will see that we already have
 a few things setup:
 
 - Authentication
@@ -29,6 +37,7 @@ To add new firebase features, you must likely will need to modify:
 
 These additions require a hot restart, and perhaps running `pod install` or `gradle build` on command line, 
 although Flutter `main.dart` run should trigger all this.
+
 ## Useful Resources
 * [Firebase Console](https://console.firebase.google.com/u/0/)
 * [Google Play Console](https://play.google.com/apps/publish/?account=8413851140364268209#AppListPlace)

@@ -30,7 +30,8 @@ class _JobsPageState extends State<JobsPage> {
                   description: collection['description'],
                   requesterName: collection['name'],
                   location: collection['location'],
-                  phoneNumber: collection['phone_number'],);
+                  phoneNumber: collection['phone_number'],
+                  );
               });
         });
   }

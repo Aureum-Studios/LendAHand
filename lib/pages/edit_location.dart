@@ -71,9 +71,7 @@ class _EditLocationState extends State<EditLocation> {
               right: 15,
               left: 15,
               child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.white),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Colors.white),
                 child: Row(
                   children: <Widget>[
                     IconButton(
@@ -88,10 +86,8 @@ class _EditLocationState extends State<EditLocation> {
                         textInputAction: TextInputAction.go,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: 15),
-                            hintText: AppLocalizations.of(context).translate(
-                                "google_maps_search")),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                            hintText: AppLocalizations.of(context).translate("google_maps_search")),
                         onTap: handleSearchTap,
                       ),
                     ),
@@ -103,7 +99,7 @@ class _EditLocationState extends State<EditLocation> {
                         )),
                   ],
                 ),
-              ),
+                ),
             ),
           ],
         ));
@@ -143,7 +139,6 @@ class _EditLocationState extends State<EditLocation> {
 
   Future<Null> setLocation(Prediction p) async {
     if (p != null) {
-
       PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
       final latitude = detail.result.geometry.location.lat;
       final longitude = detail.result.geometry.location.lng;

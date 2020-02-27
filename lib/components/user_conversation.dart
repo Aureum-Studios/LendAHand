@@ -17,8 +17,7 @@ class UserConversation extends StatelessWidget {
             bottom: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
             left: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
             right: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber),
-            top: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber)
-        ),
+            top: BorderSide(width: 1.0, style: BorderStyle.solid, color: Colors.amber)),
       ),
       child: Row(
         children: <Widget>[
@@ -26,16 +25,15 @@ class UserConversation extends StatelessWidget {
           Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0)),
           FlatButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => Conversation(receiver: email, firebaseUser: firebaseUser)
-              ));
+              Navigator.push(context,
+                                 MaterialPageRoute(
+                                     builder: (context) => Conversation(receiver: email, firebaseUser: firebaseUser)));
             },
             color: Colors.amber,
-            child: Icon(
-                Icons.edit
-            ),
+            child: Icon(Icons.edit),
           )
         ],
       ),
     );
-  }}
+  }
+}

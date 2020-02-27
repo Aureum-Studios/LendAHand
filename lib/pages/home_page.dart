@@ -16,8 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   int _currentIndex = 0;
   static FirebaseUser _firebaseUser;
 
@@ -44,51 +43,42 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-              AppLocalizations.of(context).translate('home_page_title')),
+          title: Text(AppLocalizations.of(context).translate('home_page_title')),
           actions: <Widget>[
-            PopupMenuButton<String>( // Put type of below widget here
+            PopupMenuButton<String>(
+              // Put type of below widget here
               onSelected: _select,
               itemBuilder: (BuildContext context) {
                 //TODO: Create widget that take text and icon, return here.
-                return [PopupMenuItem(value: AppLocalizations.of(context)
-                    .translate('logout_button'),
-                    child: Text(AppLocalizations.of(context).translate(
-                        'logout_button')))
+                return [
+                  PopupMenuItem(
+                      value: AppLocalizations.of(context).translate('logout_button'),
+                      child: Text(AppLocalizations.of(context).translate('logout_button')))
                 ];
               },
             ),
           ],
           //actions: <Widget>[LogoutButton()],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            onTap: onTabPressed,
-            currentIndex: _currentIndex,
-            // this will be set when a new tab is tapped
-            items: [
+          ),
+        bottomNavigationBar:
+        BottomNavigationBar(type: BottomNavigationBarType.fixed, onTap: onTabPressed, currentIndex: _currentIndex,
+                                // this will be set when a new tab is tapped
+                                items: [
               BottomNavigationBarItem(
                 icon: new Icon(Icons.home),
-                title: new Text(
-                    AppLocalizations.of(context).translate('home_bar_item')),
+                title: new Text(AppLocalizations.of(context).translate('home_bar_item')),
               ),
               BottomNavigationBarItem(
                 icon: new Icon(Icons.mail),
-                title: new Text(AppLocalizations.of(context).translate(
-                    'messages_bar_item')),
+                title: new Text(AppLocalizations.of(context).translate('messages_bar_item')),
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text(AppLocalizations.of(context).translate
-                    ('profile_bar_item'))),
+                  icon: Icon(Icons.person), title: Text(AppLocalizations.of(context).translate('profile_bar_item'))),
               BottomNavigationBarItem(
                   icon: Icon(Icons.location_on),
-                  title: Text(AppLocalizations.of(context).translate
-                    ('location_bar_item'))),
+                  title: Text(AppLocalizations.of(context).translate('location_bar_item'))),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  title: Text(AppLocalizations.of(context).translate
-                    ('settings_bar_item')))
+                  icon: Icon(Icons.settings), title: Text(AppLocalizations.of(context).translate('settings_bar_item')))
             ]),
         body: RefreshIndicator(
           key: _refreshIndicatorKey,

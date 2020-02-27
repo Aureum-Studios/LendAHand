@@ -20,11 +20,10 @@ class _AccountCreationState extends State<AccountCreation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate
-          ("account_creation_title")),
+	      title: Text(AppLocalizations.of(context).translate("account_creation_title")),
         centerTitle: true,
         backgroundColor: Colors.amber,
-      ),
+	      ),
       body: SafeArea(
         child: Form(
           key: _accountKey,
@@ -35,20 +34,15 @@ class _AccountCreationState extends State<AccountCreation> {
                 padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
                 child: TextFormField(
                   decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0)),
+		                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+		                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
                       hintText: 'Ex johndoe@email.com',
                       labelText: 'EMAIL'),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) =>
-                  EmailValidator.validate(value)
-                      ? null
-                      : AppLocalizations.of(context).translate
-                    ("email_validation_hint"),
+	                validator: (value) =>
+	                EmailValidator.validate(value)
+	                ? null
+	                : AppLocalizations.of(context).translate("email_validation_hint"),
                   onSaved: (value) => _email = value,
                 ),
               ),
@@ -56,17 +50,12 @@ class _AccountCreationState extends State<AccountCreation> {
                 padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 5.0),
                 child: TextFormField(
                   decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0)),
+		                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+		                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
                       hintText: 'Ex John Doe',
                       labelText: 'NAME'),
                   validator: (value) =>
-                  value.isNotEmpty ? null : AppLocalizations.of(context)
-                      .translate("name_validaton_hint"),
+                  value.isNotEmpty ? null : AppLocalizations.of(context).translate("name_validaton_hint"),
                   onSaved: (value) => _name = value,
                 ),
               ),
@@ -75,19 +64,15 @@ class _AccountCreationState extends State<AccountCreation> {
                 child: TextFormField(
                   obscureText: true,
                   decoration: const InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+	                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
+	                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1.0)),
                     labelText: 'PASSWORD',
-                  ),
+	                  ),
                   validator: (value) {
                     if (value.length < 8)
-                      return AppLocalizations.of(context).translate
-                        ("value_less_than_eight_chars");
+	                    return AppLocalizations.of(context).translate("value_less_than_eight_chars");
                     else if (value.length > 16)
-                      return AppLocalizations.of(context).translate(
-                          "value_more_than_sixteen_chars");
+	                    return AppLocalizations.of(context).translate("value_more_than_sixteen_chars");
                     else
                       return null;
                   },
@@ -104,8 +89,7 @@ class _AccountCreationState extends State<AccountCreation> {
                       //Call Firebase to create Authenticated User.
                       try {
                         FirebaseUser result =
-                        await Provider.of<AuthService>(context)
-                            .createUser(email: _email, password: _password);
+                        await Provider.of<AuthService>(context).createUser(email: _email, password: _password);
                         print(result);
                         Navigator.pushReplacementNamed(context, '/home');
                       } on AuthException catch (error) {

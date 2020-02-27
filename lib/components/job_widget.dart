@@ -27,8 +27,7 @@ class JobWidget extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
-          print(
-              'This is the location ${this.location.latitude} + ${this.location.latitude}');
+	        print('This is the location ${this.location.latitude} + ${this.location.latitude}');
         },
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(

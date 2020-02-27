@@ -34,37 +34,31 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                         onSaved: (value) => _email = value,
                         keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)
-                                .translate('email'))),
+                        decoration: InputDecoration(labelText: AppLocalizations.of(context).translate('email'))),
                     TextFormField(
                         onSaved: (value) => _password = value,
                         obscureText: true,
-                        decoration: InputDecoration(labelText:
-                        AppLocalizations.of(context).translate('password'),)),
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context).translate('password'),
+                          )),
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
                       child: RaisedButton(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(AppLocalizations.of(context).translate(
-                              'login_button')),
+                          child: Text(AppLocalizations.of(context).translate('login_button')),
                           onPressed: () async {
                             final form = _formKey.currentState;
                             form.save();
 
                             if (form.validate()) {
                               try {
-                                FirebaseUser result =
-                                await Provider.of<AuthService>(context)
-                                    .loginUser(
-                                    email: _email, password: _password);
+                                FirebaseUser result = await Provider.of<AuthService>(context)
+                                    .loginUser(email: _email, password: _password);
                                 print(result);
                               } on AuthException catch (error) {
-                                return _buildErrorDialog(
-                                    context, error.message);
+                                return _buildErrorDialog(context, error.message);
                               } on Exception catch (error) {
-                                return _buildErrorDialog(
-                                    context, error.toString());
+                                return _buildErrorDialog(context, error.toString());
                               }
                             }
                           }),
@@ -73,31 +67,24 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(AppLocalizations.of(context).translate
-                            ('login_button_facebook')),
+                          child: Text(AppLocalizations.of(context).translate('login_button_facebook')),
                           onPressed: () async {
                             try {
-                              FirebaseUser result =
-                              await Provider.of<AuthService>(context)
-                                  .loginWithFacebook();
+                              FirebaseUser result = await Provider.of<AuthService>(context).loginWithFacebook();
                               print(result);
                             } on AuthException catch (error) {
                               return _buildErrorDialog(context, error.message);
                             } on Exception catch (error) {
-                              return _buildErrorDialog(context, error
-                                  .toString());
+                              return _buildErrorDialog(context, error.toString());
                             }
                           }),
                     ),
                     RaisedButton(
                         padding: EdgeInsets.all(10.0),
-                        child: Text(AppLocalizations.of(context).translate
-                          ('login_button_google')),
+                        child: Text(AppLocalizations.of(context).translate('login_button_google')),
                         onPressed: () async {
                           try {
-                            FirebaseUser result =
-                            await Provider.of<AuthService>(context)
-                                .loginWithGoogle();
+                            FirebaseUser result = await Provider.of<AuthService>(context).loginWithGoogle();
                             print(result);
                           } on AuthException catch (error) {
                             return _buildErrorDialog(context, error.message);
@@ -109,8 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(top: 32.0),
                       child: RaisedButton(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(AppLocalizations.of(context).translate
-                            ('create_account')),
+                          child: Text(AppLocalizations.of(context).translate('create_account')),
                           onPressed: () async {
                             Navigator.pushNamed(context, '/accountCreation');
                           }),

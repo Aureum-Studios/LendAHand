@@ -11,8 +11,7 @@ class Message extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        crossAxisAlignment:
-        user ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+	      crossAxisAlignment: user ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(sender),
           Material(
@@ -25,7 +24,7 @@ class Message extends StatelessWidget {
             ),
           )
         ],
-      ),
+	      ),
     );
   }
 }
