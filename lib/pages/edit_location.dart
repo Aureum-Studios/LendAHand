@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:lend_a_hand/services/app_localizations.dart';
 
 const googlePlacesApiKey = "AIzaSyDNxE7rUhBvQJxNDJs-Mjne6EPbCl28b_E";
 
@@ -40,7 +41,7 @@ class _EditLocationState extends State<EditLocation> {
         appBar: AppBar(
           backgroundColor: Colors.amber,
           centerTitle: true,
-          title: Text('Edit Location'),
+          title: Text(AppLocalizations.of(context).translate("edit_location")),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -89,7 +90,8 @@ class _EditLocationState extends State<EditLocation> {
                             border: InputBorder.none,
                             contentPadding:
                             EdgeInsets.symmetric(horizontal: 15),
-                            hintText: "Search Google Maps"),
+                            hintText: AppLocalizations.of(context).translate(
+                                "google_maps_search")),
                         onTap: handleSearchTap,
                       ),
                     ),

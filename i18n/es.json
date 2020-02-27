@@ -19,5 +19,12 @@
   "settings_bar_item": "Configuración",
   "messages_page_title": "Mensajes",
   "message_input_hint": "Inserta un mensaje",
-  "send_message_hint": "Enviar mensaje"
+  "send_message_hint": "Enviar mensaje",
+  "google_maps_search": "Buscar en Google Maps",
+  "edit_location": "Editar Localización",
+  "account_creation_title": "Creación de Cuenta",
+  "email_validation_hint": "Por favor introduzca un correo válido",
+  "name_validation_hint": "Por favor introduzca un nombre",
+  "value_less_than_eight_chars": "Contraseña inválida, mínimo: 8 caracteres",
+  "value_more_than_sixteen_chars": "Contraseña inválida, máximo: 16 caracteres"
 }

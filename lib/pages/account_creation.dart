@@ -20,7 +20,8 @@ class _AccountCreationState extends State<AccountCreation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Sign Up'),
+        title: Text(AppLocalizations.of(context).translate
+          ("account_creation_title")),
         centerTitle: true,
         backgroundColor: Colors.amber,
       ),
@@ -46,7 +47,8 @@ class _AccountCreationState extends State<AccountCreation> {
                   validator: (value) =>
                   EmailValidator.validate(value)
                       ? null
-                      : 'Please enter a valid email',
+                      : AppLocalizations.of(context).translate
+                    ("email_validation_hint"),
                   onSaved: (value) => _email = value,
                 ),
               ),
@@ -63,7 +65,8 @@ class _AccountCreationState extends State<AccountCreation> {
                       hintText: 'Ex John Doe',
                       labelText: 'NAME'),
                   validator: (value) =>
-                  value.isNotEmpty ? null : 'Please enter a name',
+                  value.isNotEmpty ? null : AppLocalizations.of(context)
+                      .translate("name_validaton_hint"),
                   onSaved: (value) => _name = value,
                 ),
               ),
@@ -80,9 +83,11 @@ class _AccountCreationState extends State<AccountCreation> {
                   ),
                   validator: (value) {
                     if (value.length < 8)
-                      return 'Invalid password, minimum length: 8 characters';
+                      return AppLocalizations.of(context).translate
+                        ("value_less_than_eight_chars");
                     else if (value.length > 16)
-                      return 'Invalid password, maximum length 16 characters';
+                      return AppLocalizations.of(context).translate(
+                          "value_more_than_sixteen_chars");
                     else
                       return null;
                   },

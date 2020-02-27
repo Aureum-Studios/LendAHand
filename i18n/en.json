@@ -19,5 +19,12 @@
   "settings_bar_item": "Settings",
   "messages_page_title": "Messages",
   "message_input_hint": "Enter a message",
-  "send_message_hint": "Send message"
+  "send_message_hint": "Send message",
+  "google_maps_search": "Search Google Maps",
+  "edit_location": "Edit Location",
+  "account_creation_title": "Account Sign Up",
+  "email_validation_hint": "Please enter a valid email",
+  "name_validation_hint": "Please enter a name",
+  "value_less_than_eight_chars": "Invalid password, minimum length: 8 characters",
+  "value_more_than_sixteen_chars": "Invalid password, maximum length 16 characters"
 }
