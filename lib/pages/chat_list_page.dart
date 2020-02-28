@@ -25,15 +25,14 @@ class _ChatListState extends State<ChatList> {
     _conversations = FutureBuilder<QuerySnapshot>(
       future: _firestore.collection("chats").getDocuments(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          return Center(child: CircularProgressIndicator());
+        if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
 
         print(snapshot.hasData);
         print(snapshot.data.documents.isEmpty);
 
-        List<Widget> conversations = snapshot.data.documents.map((doc) =>
-            new UserConversation(email: doc.documentID, firebaseUser: widget.firebaseUser)
-        ).toList();
+        List<Widget> conversations = snapshot.data.documents
+            .map((doc) => new UserConversation(email: doc.documentID, firebaseUser: widget.firebaseUser))
+            .toList();
 
         return ListView(
           children: <Widget>[...conversations],

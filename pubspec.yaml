@@ -11,15 +11,15 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
-  firebase_core: ^0.4.1+5
-  firebase_crashlytics: ^0.1.1
-  firebase_auth: ^0.14.0+9
-  firebase_analytics: ^5.0.6
+  firebase_core: ^0.4.3
+  firebase_crashlytics: ^0.1.2
+  firebase_auth: ^0.15.4
+  firebase_analytics: ^5.0.11
   flutter_facebook_login: ^3.0.0
   google_sign_in: ^4.1.1
   cached_network_image: ^2.0.0
-  cloud_firestore: ^0.12.11
-  firebase_storage: ^3.0.10
+  cloud_firestore: ^0.13.1
+  firebase_storage: ^3.1.1
   provider: ^3.1.0+1
   logger: ^0.7.0 #todo: add a global logger using this class, or possibly use dart:developer
   flutter_spinkit: ^4.0.0
@@ -45,11 +45,6 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   uses-material-design: true
+  assets:
+    - i18n/
 
-# To add assets to your application, add an assets section, like this:
-assets:
-  - i18n/en.json
-  - i18n/es.json
-
-# An image asset can refer to one or more resolution-specific "variants", see
-# https://flutter.dev/assets-and-images/#resolution-aware.

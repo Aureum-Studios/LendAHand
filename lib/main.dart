@@ -13,7 +13,7 @@ import 'pages/login_page.dart';
 
 void main() => runApp(ChangeNotifierProvider<AuthService>(
     child: MyApp(),
-    builder: (BuildContext context) {
+    create: (BuildContext context) {
       return AuthService();
     }));
 

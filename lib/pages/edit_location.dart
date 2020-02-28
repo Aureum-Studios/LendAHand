@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:lend_a_hand/services/app_localizations.dart';
 
 const googlePlacesApiKey = "AIzaSyDNxE7rUhBvQJxNDJs-Mjne6EPbCl28b_E";
 
@@ -40,7 +41,7 @@ class _EditLocationState extends State<EditLocation> {
         appBar: AppBar(
           backgroundColor: Colors.amber,
           centerTitle: true,
-          title: Text('Edit Location'),
+          title: Text(AppLocalizations.of(context).translate("edit_location")),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -70,9 +71,7 @@ class _EditLocationState extends State<EditLocation> {
               right: 15,
               left: 15,
               child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.white),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Colors.white),
                 child: Row(
                   children: <Widget>[
                     IconButton(
@@ -87,9 +86,8 @@ class _EditLocationState extends State<EditLocation> {
                         textInputAction: TextInputAction.go,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: 15),
-                            hintText: "Search Google Maps"),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                            hintText: AppLocalizations.of(context).translate("google_maps_search")),
                         onTap: handleSearchTap,
                       ),
                     ),
@@ -101,7 +99,7 @@ class _EditLocationState extends State<EditLocation> {
                         )),
                   ],
                 ),
-              ),
+                ),
             ),
           ],
         ));
@@ -141,7 +139,6 @@ class _EditLocationState extends State<EditLocation> {
 
   Future<Null> setLocation(Prediction p) async {
     if (p != null) {
-
       PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
       final latitude = detail.result.geometry.location.lat;
       final longitude = detail.result.geometry.location.lng;

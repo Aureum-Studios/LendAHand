@@ -9,7 +9,7 @@ class JobWidget extends StatelessWidget {
   final GeoPoint location;
   final Timestamp datePosted;
 
-  DateFormat _format = new DateFormat('hh:mm - MM/dd/yy');
+  final DateFormat _format = new DateFormat('hh:mm - MM/dd/yy');
 
   // If the widget was to change to Stateful, then duplicate in State class
   // with private fields
@@ -27,8 +27,7 @@ class JobWidget extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
-          print(
-              'This is the location ${this.location.latitude} + ${this.location.latitude}');
+	        print('This is the location ${this.location.latitude} + ${this.location.latitude}');
         },
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(

@@ -26,8 +26,7 @@ class _UserProfileState extends State<UserProfile> {
                         child: Column(
                           children: <Widget>[
                             Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 32.0, 8.0, 8.0),
+                                padding: const EdgeInsets.fromLTRB(8.0, 32.0, 8.0, 8.0),
                                 child: Container(
                                     width: 190,
                                     height: 190,
@@ -35,25 +34,19 @@ class _UserProfileState extends State<UserProfile> {
                                         shape: BoxShape.circle,
                                         image: new DecorationImage(
                                           fit: BoxFit.fill,
-                                          image:
-                                              new NetworkImage(user.photoUrl),
+                                          image: new NetworkImage(user.photoUrl),
                                         )))),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  8.0, 32.0, 8.0, 8.0),
-                              child: Text('Name: ${user.displayName ?? 'N/A'}',
-                                  style: TextStyle(fontSize: 16)),
+                              padding: const EdgeInsets.fromLTRB(8.0, 32.0, 8.0, 8.0),
+                              child: Text('Name: ${user.displayName ?? 'N/A'}', style: TextStyle(fontSize: 16)),
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('Phone Number: ${user.phoneNumber ?? 'N/A'}', style: TextStyle(fontSize: 16)),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  'Phone Number: ${user.phoneNumber ?? 'N/A'}',
-                                  style: TextStyle(fontSize: 16)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Email: ${user.email ?? 'N/A'}',
-                                  style: TextStyle(fontSize: 16)),
+                              child: Text('Email: ${user.email ?? 'N/A'}', style: TextStyle(fontSize: 16)),
                             ),
                           ],
                         ),

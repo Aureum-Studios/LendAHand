@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lend_a_hand/components/send_message_button.dart';
 import 'package:lend_a_hand/components/user_message.dart';
+import 'package:lend_a_hand/services/app_localizations.dart';
 
 class Conversation extends StatefulWidget {
   final FirebaseUser firebaseUser;
@@ -25,11 +26,15 @@ class _ConversationState extends State<Conversation> {
 
   Future<void> callback() async {
     if (_controller.text.length > 0) {
-      var data = {'text': _controller.text, 'sender': widget.firebaseUser.email, 'date': DateTime.now().toIso8601String()};
-      await _firestore
-          .collection('chats')
-          .document(widget.firebaseUser.email)
-          .updateData({'messages': FieldValue.arrayUnion([data])});
+      var data = {
+        'text': _controller.text,
+        'sender': widget.firebaseUser.email,
+        'date': DateTime.now().toIso8601String()
+      };
+      await _firestore.collection('chats').document(widget.firebaseUser.email).updateData({
+                                                                                            'messages': FieldValue
+                                                                                                .arrayUnion([data])
+                                                                                          });
       _controller.clear();
       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
           curve: Curves.easeOut, duration: Duration(milliseconds: 300));
@@ -41,12 +46,9 @@ class _ConversationState extends State<Conversation> {
     super.initState();
 
     _messages = StreamBuilder<DocumentSnapshot>(
-      stream: _firestore.collection('chats')
-          .document(widget.firebaseUser.email)
-          .snapshots(),
+      stream: _firestore.collection('chats').document(widget.firebaseUser.email).snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          return Center(child: CircularProgressIndicator());
+        if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
 
         SchedulerBinding.instance.addPostFrameCallback((_) {
           _scrollController.animateTo(
@@ -57,36 +59,36 @@ class _ConversationState extends State<Conversation> {
         });
 
         List list = snapshot.data.data['messages'];
-        List<Widget> messages = list.map((message) =>
+        List<Widget> messages = list
+            .map((message) =>
         new Message(
           sender: message['sender'],
           text: message['text'],
           user: widget.firebaseUser.email == message['sender'],
-        )).toList();
+          ))
+            .toList();
 
         return ListView(
           controller: _scrollController,
           children: <Widget>[...messages],
         );
       },
-    );
+      );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Messages'),
+          title: Text(AppLocalizations.of(context).translate('messages_page_title')),
           backgroundColor: Colors.amber,
           centerTitle: true,
-        ),
+          ),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Expanded(
-                child: _messages
-              ),
+              Expanded(child: _messages),
               Container(
                   child: Row(
                 children: <Widget>[
@@ -95,14 +97,14 @@ class _ConversationState extends State<Conversation> {
                     onSubmitted: (value) => callback(),
                     controller: _controller,
                     decoration: InputDecoration(
-                      hintText: "Enter a message",
+                      hintText: AppLocalizations.of(context).translate('message_input_hint'),
                       border: OutlineInputBorder(),
-                    ),
+                      ),
                   )),
                   SendButton(
-                    text: "Send Message",
+                    text: AppLocalizations.of(context).translate('send_message_hint'),
                     callback: callback,
-                  )
+                    )
                 ],
               ))
             ],
